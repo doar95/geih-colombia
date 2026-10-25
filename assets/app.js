@@ -234,8 +234,9 @@ function nav() {
     Object.values(charts).forEach(c => c.resize());
   };
   tabs.forEach(b => b.addEventListener('click', () => show(b.dataset.t)));
-  const h = location.hash.slice(1); show($('#' + h) ? h : 'resumen');
-  window.addEventListener('hashchange', () => { const k = location.hash.slice(1); if ($('#' + k) && $('#' + k).tagName === 'SECTION') show(k); });
+  const esSeccion = k => { const el = k && document.getElementById(k); return !!el && el.tagName === 'SECTION'; };
+  const h = location.hash.slice(1); show(esSeccion(h) ? h : 'resumen');
+  window.addEventListener('hashchange', () => { const k = location.hash.slice(1); if (esSeccion(k)) show(k); });
   $('#btn-lang').addEventListener('click', () => {
     document.documentElement.lang = lang() === 'es' ? 'en' : 'es';
     try { localStorage.setItem('geih-lang', document.documentElement.lang); } catch (e) {}
