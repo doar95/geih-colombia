@@ -1,0 +1,14 @@
+cff-version: 1.2.0
+message: "Si usa este repositorio, cítelo así."
+title: "Indicadores sociales de Colombia con la GEIH y la ECV del DANE"
+type: dataset
+authors:
+  - name: "Claude (Anthropic)"
+  - family-names: "Aguilar"
+    given-names: "David"
+  - family-names: "Gómez"
+    given-names: "Camila"
+date-released: 2026-10-25
+url: "https://doar95.github.io/geih-colombia/"
+repository-code: "https://github.com/doar95/geih-colombia"
+license: MIT

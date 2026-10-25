@@ -1,0 +1,7 @@
+__pycache__/
+*.pyc
+.DS_Store
+# Los anexos y microdatos del DANE no se redistribuyen (condiciones de uso del DANE)
+data/raw/
+microdatos/
+data/externos/ipc_dane_mensual.csv
