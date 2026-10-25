@@ -15,7 +15,7 @@ from comun import bloques, limpiar, es_anio, anio
 RAIZ = Path(__file__).resolve().parents[1]
 RAW = RAIZ / 'data' / 'raw' / 'dane'
 EXT = RAIZ / 'data' / 'externos'
-OUT = RAIZ / 'docs' / 'data'
+OUT = RAIZ / 'data'
 
 def hoja(f, s):
     return pd.read_excel(RAW / f, sheet_name=s, header=None)

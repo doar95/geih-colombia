@@ -10,13 +10,13 @@ Autores: Claude (Anthropic), David Aguilar y Camila Gómez.
 
 | Ruta | Descripción |
 |---|---|
-| `docs/index.html` | Sitio publicado en GitHub Pages (español e inglés). |
-| `docs/assets/app.js` | Gráficos, mapas, conversión a pesos constantes e idioma. |
-| `docs/data/datos.json` | Datos procesados que usa el sitio. |
-| `docs/data/departamentos.geojson` | Límites departamentales simplificados (derivados del Marco Geoestadístico Nacional del DANE). |
+| `index.html` | Sitio publicado en GitHub Pages desde la raíz de la rama main (español e inglés). |
+| `assets/app.js` | Gráficos, mapas, conversión a pesos constantes e idioma. |
+| `data/datos.json` | Datos procesados que usa el sitio. |
+| `data/departamentos.geojson` | Límites departamentales simplificados (derivados del Marco Geoestadístico Nacional del DANE). |
 | `data/externos/` | Cifras de afiliación al SGSSS (Ministerio de Salud y Protección Social). |
 | `scripts/00_descargar_anexos.py` | Descarga los anexos oficiales desde www.dane.gov.co a `data/raw/dane/` (carpeta excluida del repositorio). |
-| `scripts/01_construir_datos.py` | Transforma los anexos en `docs/data/datos.json`. |
+| `scripts/01_construir_datos.py` | Transforma los anexos en `data/datos.json`. |
 
 ## Fuentes (versiones usadas)
 
