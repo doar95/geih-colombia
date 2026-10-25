@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="es">
+<html lang="es" data-version="20261025b">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -137,7 +137,7 @@ footer{border-top:1px solid var(--borde);color:var(--sub);font-size:13px;padding
  </div>
 </header>
 <div class="franja"></div>
-<div id="error" class="aviso rojo" hidden>No fue posible cargar los datos (data/datos.json). / Data could not be loaded.</div>
+<div id="error" class="aviso rojo" hidden>No fue posible cargar los datos. Recargue la página con Ctrl+F5 (Cmd+Shift+R en Mac). / Data could not be loaded; reload with Ctrl+F5. <small class="det"></small> <button type="button" onclick="location.reload()">Recargar / Reload</button></div>
 <div class="layout">
 <nav class="tabs" aria-label="Secciones">
 <button data-t="resumen"><span class="es">Resumen del estudio</span><span class="en">Study abstract</span><small><span class="es">Brief, cifras clave y cita</span><span class="en">Brief, key figures, citation</span></small></button>
@@ -790,6 +790,6 @@ python scripts/01_construir_datos.py    # genera data/datos.json</pre>
 </main>
 </div>
 <footer><p>Fuente: Departamento Administrativo Nacional de Estadística: <a href="https://www.dane.gov.co">www.dane.gov.co</a> · Ministerio de Salud y Protección Social: <a href="https://minsalud.gov.co/Proteccion-Social/Paginas/cifras-aseguramiento-salud.aspx">cifras de afiliación en salud</a></p><span class="es">Repositorio académico de acceso abierto. Código: licencia MIT. Datos: DANE y Ministerio de Salud y Protección Social, citados en cada gráfico.</span><span class="en">Open-access academic repository. Code: MIT licence. Data: DANE and Ministry of Health, cited in each chart.</span> · <a href="https://github.com/doar95/geih-colombia">github.com/doar95/geih-colombia</a></footer>
-<script src="assets/app.js"></script>
+<script src="assets/app.js?v=20261025b"></script>
 </body>
 </html>

@@ -269,8 +269,10 @@ function cifrasClave() {
 async function init() {
   try { const l = localStorage.getItem('geih-lang'); if (l) document.documentElement.lang = l; } catch (e) {}
   $('#btn-lang').textContent = lang() === 'es' ? 'English' : 'Español';
-  [D, GEO] = await Promise.all([fetch('data/datos.json').then(r => r.json()), fetch('data/departamentos.geojson').then(r => r.json())]);
+  const VER = document.documentElement.dataset.version || '1';  // evita respuestas antiguas guardadas en caché
+  const leer = u => fetch(u + '?v=' + VER, { cache: 'no-cache' }).then(r => { if (!r.ok) throw new Error(u + ' (HTTP ' + r.status + ')'); return r.json(); });
+  [D, GEO] = await Promise.all([leer('data/datos.json'), leer('data/departamentos.geojson')]);
   opciones(); nav(); cifrasClave(); todo();
 }
-document.addEventListener('DOMContentLoaded', () => init().catch(e => { console.error(e); const b = $('#error'); if (b) { b.hidden = false; } }));
+document.addEventListener('DOMContentLoaded', () => init().catch(e => { console.error(e); const b = $('#error'); if (b) { b.hidden = false; const d = b.querySelector('.det'); if (d) d.textContent = String(e.message || e); } }));
 })();
