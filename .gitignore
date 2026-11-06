@@ -5,3 +5,8 @@ __pycache__/
 data/raw/
 microdatos/
 data/externos/ipc_dane_mensual.csv
+scripts/salida/
+*.dta
+*.DTA
+*.sav
+*.parquet
