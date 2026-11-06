@@ -185,8 +185,21 @@ población: `afil`, `contrib`, `especial`, `subsid` en nacional; `afil`, `contri
 - Bilingüe (clases `.es` y `.en`), paleta gov.co ya definida en `index.html`, sin logos oficiales, y versión en
   `data-version` para evitar caché. **El amarillo `#FFAB00` solo se usa como relleno con borde;** nunca en líneas, puntos ni
   texto sobre fondo claro (en su lugar, `--ocre`, `#B26A00`).
-- Fases siguientes: al agregar ingreso y pobreza, mantener el aviso de COP corrientes por defecto, el conversor a constantes
-  y las advertencias de ingresos 2026 no corregidos y contrafactual mecánico.
+- Las cifras monetarias están en COP corrientes (COP = pesos colombianos). Se mantienen las advertencias de ingresos 2026 no
+  corregidos.
+
+## 5.1 Pestaña principal: Trabajo, protección y contribución
+
+- Sección 1 y apertura por defecto del sitio. `scripts/03_trabajo.py` escribe `data/trabajo.json`; `assets/trabajo.js` solo busca
+  cifras y calcula porcentajes entre cifras publicadas.
+- Estados precalculados: período × territorio × hasta un filtro; a nivel nacional, además, hasta dos filtros en las
+  combinaciones sexo × (edad, educación, posición, rama, formalidad), formalidad × (edad, educación, posición, rama) y edad × educación.
+- Mismas reglas de la sección 4, aplicadas por celda con un motor de punto fijo: dentro de la selección, entre categorías de
+  un filtro, nacional = cabeceras + rural y resta de períodos.
+- Ingreso: 2025 con `impa` o `impaes` (base 908); 2026 con `INGLABO`, marcado «sin corregir». `fex_c` es igual a `FEX_C18/12` en
+  los registros cruzados. Personas de la base 908: `fex_c × nper` replica pobreza, Gini e ingreso per cápita.
+- Horas: `P6800` (normales). Jornada legal por mes según la Ley 2101 de 2021. Subempleo: definición propia, sin contraste oficial.
+- Colores de grupo: verde y ocre no pasan el contraste para texto (4,5:1); se usan solo en la franja.
 
 ## 6. Archivos a crear o modificar
 

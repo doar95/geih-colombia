@@ -3,8 +3,7 @@
 - Sitio estático publicado con GitHub Pages desde la raíz de `main`: `index.html`, `assets/`, `data/`.
 - Idioma base español; inglés como alternativa (clases `.es` / `.en`). Lenguaje académico, sin lisonjas;
   cada cifra justificada con su fuente; si no hay dato, se informa.
-- Cifras monetarias en COP corrientes por defecto (COP = pesos colombianos); conversión a constantes solo
-  como opción del usuario, con alerta visible.
+- Cifras monetarias en COP corrientes (COP = pesos colombianos).
 - **Nunca** subir anexos ni microdatos del DANE (condiciones de uso del catálogo ANDA). Solo resúmenes
   numéricos con la cita «Fuente: Departamento Administrativo Nacional de Estadística: www.dane.gov.co».
   Revisar `git status` antes de cada commit.

@@ -11,7 +11,8 @@ const MANDATOS = [
   { n: 'Álvaro Uribe (II)', i: '2006-08', f: '2010-07' }, { n: 'Juan Manuel Santos (I)', i: '2010-08', f: '2014-07' },
   { n: 'Juan Manuel Santos (II)', i: '2014-08', f: '2018-07' }, { n: 'Iván Duque', i: '2018-08', f: '2022-07' },
   { n: 'Gustavo Petro', i: '2022-08', f: '2026-07' }, { n: 'Abelardo de la Espriella', i: '2026-08', f: '2030-07' }];
-let D, GEO, constantes = false, verMandatos = false;
+let D, GEO;
+const bandasOn = {};
 const charts = {};
 const lang = () => document.documentElement.lang === 'en' ? 'en' : 'es';
 const t = (es, en) => lang() === 'en' ? en : es;
@@ -20,23 +21,11 @@ const TR = { 'Nacional': 'National', 'Cabecera': 'Urban centres', 'Cabeceras': '
 const tr = k => lang() === 'en' && TR[k] ? TR[k] : k;
 const cop = v => v == null ? '—' : 'COP ' + Math.round(v).toLocaleString(lang() === 'en' ? 'en-US' : 'es-CO');
 
-/* ---------- Deflactor: COP constantes de 2025 (IPC promedio anual, base dic. 2018 = 100) ---------- */
-const BASE = 2025;
-function defl(v, a) {
-  if (!constantes || v == null) return v;
-  const i = D.ipc_anual[a], b = D.ipc_anual[BASE];
-  return i && b ? v * b / i : null;
-}
-function avisoMonetario() {
-  $$('.aviso-constantes').forEach(e => e.hidden = !constantes);
-  $$('[data-moneda]').forEach(e => e.textContent = constantes ? t('COP constantes de 2025', 'constant 2025 COP') : t('COP corrientes', 'current COP'));
-}
-
 /* ---------- Gráficos ---------- */
 const bandas = {
   id: 'bandas',
   beforeDatasetsDraw(ch, a, o) {
-    if (!verMandatos || !o || !o.anual) return;
+    if (!o || !o.ver) return;
     const { ctx, chartArea: ar, scales: { x } } = ch; const labs = ch.data.labels.map(String);
     MANDATOS.forEach((m, k) => {
       const ia = labs.indexOf(String(+m.i.slice(0, 4) + 1)), fa = labs.indexOf(m.f.slice(0, 4));
@@ -62,7 +51,7 @@ function linea(id, labels, series, opt = {}) {
     data: { labels, datasets: series.map((s, k) => ({ label: s.n, data: s.v, borderColor: s.c || SERIE[k % 6], backgroundColor: s.c || SERIE[k % 6], borderWidth: 2, pointRadius: labels.length > 40 ? 0 : 2.5, spanGaps: false, borderDash: s.dash || [], tension: 0 })) },
     options: {
       responsive: true, maintainAspectRatio: false, interaction: { mode: 'index', intersect: false },
-      plugins: { bandas: { anual: !!opt.anual }, legend: { labels: { color: css.getPropertyValue('--texto'), boxWidth: 12 } },
+      plugins: { bandas: { ver: !!bandasOn[id] }, legend: { labels: { color: css.getPropertyValue('--texto'), boxWidth: 12 } },
         tooltip: { callbacks: { label: c => `${c.dataset.label}: ${opt.fmt ? opt.fmt(c.parsed.y) : nf(c.parsed.y, opt.d ?? 1)}` } } },
       scales: { x: { ticks: { color: css.getPropertyValue('--sub'), maxTicksLimit: 14 }, grid: { display: false } },
         y: { beginAtZero: !!opt.cero, ticks: { color: css.getPropertyValue('--sub'), callback: v => opt.fmtEje ? opt.fmtEje(v) : nf(v, opt.dEje ?? 0) }, grid: { color: css.getPropertyValue('--borde') },
@@ -167,9 +156,9 @@ function pobreza() {
   linea('g-brecha', anos, [{ n: t('Brecha (FGT1), pobreza monetaria', 'Gap (FGT1), poverty'), v: anos.map(a => val(P.Brecha_PM.Nacional, a)) }, { n: t('Severidad (FGT2), pobreza monetaria', 'Severity (FGT2), poverty'), v: anos.map(a => val(P.Severidad_PM.Nacional, a)), c: C.rojo }], { anual: true, d: 1 });
   // ingreso y líneas (monetario)
   const sel = $('#pob-dom').value;
-  linea('g-ing', anos, [{ n: t('Ingreso per cápita de la unidad de gasto', 'Per capita income of the spending unit'), v: anos.map(a => defl(val(P.Ingpc[sel], a), +a)) },
-    { n: t('Línea de pobreza (LP)', 'Poverty line (PL)'), v: anos.map(a => defl(val(P.LP[sel], a), +a)), c: C.rojo },
-    { n: t('Línea de pobreza extrema (LI)', 'Extreme poverty line (EPL)'), v: anos.map(a => defl(val(P.LI[sel], a), +a)), c: C.ocre, dash: [5, 4] }],
+  linea('g-ing', anos, [{ n: t('Ingreso per cápita de la unidad de gasto', 'Per capita income of the spending unit'), v: anos.map(a => val(P.Ingpc[sel], a)) },
+    { n: t('Línea de pobreza (LP)', 'Poverty line (PL)'), v: anos.map(a => val(P.LP[sel], a)), c: C.rojo },
+    { n: t('Línea de pobreza extrema (LI)', 'Extreme poverty line (EPL)'), v: anos.map(a => val(P.LI[sel], a)), c: C.ocre, dash: [5, 4] }],
     { anual: true, cero: true, fmt: cop, fmtEje: v => (v / 1000).toLocaleString(lang() === 'en' ? 'en-US' : 'es-CO') + t(' mil', 'k') });
   // ciudades
   const ciu = Object.keys(P.PM).filter(k => !dom.includes(k) && !/13 ciudades|Otras/.test(k));
@@ -179,7 +168,7 @@ function pobreza() {
   el.innerHTML = fl.map(([k, v]) => `<div class="rk"><span>${k}</span><i style="width:${100 * v / mx}%"></i><b>${nf(v, ind === 'Gini' ? 3 : 1)}</b></div>`).join('') || `<p class="nota">${t('Sin datos para este año.', 'No data for this year.')}</p>`;
   // departamentos 2021-2025
   const ad = $('#pobd-ano').value, idd = $('#pobd-ind').value, vd = {};
-  Object.entries(D.pob_dep[idd]).forEach(([c, s]) => { if (c !== '00') vd[c] = idd === 'Ingpc' || idd === 'LP' || idd === 'LI' ? defl(val(s, ad), +ad) : val(s, ad); });
+  Object.entries(D.pob_dep[idd]).forEach(([c, s]) => { if (c !== '00') vd[c] = val(s, ad); });
   const mon = ['Ingpc', 'LP', 'LI'].includes(idd);
   mapa('m-pob', vd, { fmt: mon ? cop : v => nf(v, idd === 'Gini' ? 3 : 1) + (idd === 'Gini' ? '' : '%'), inv: false });
   ranking('r-pob', vd, { fmt: mon ? cop : v => nf(v, idd === 'Gini' ? 3 : 1) });
@@ -221,7 +210,7 @@ function salud() {
   const pv = D.ipm_privaciones_nac, aa = rango(2010, 2025).map(String);
   linea('g-ipm-salud', aa, Object.keys(pv).map((k, i) => ({ n: tr(k), v: aa.map(x => val(pv[k]['Sin aseguramiento en salud'], x)) })), { y: t('% de hogares', '% of households'), anual: true });
 }
-function todo() { avisoMonetario(); laboral(); pobreza(); ipm(); salud(); }
+function todo() { laboral(); pobreza(); ipm(); salud(); }
 
 /* ---------- Navegación, idioma, tema ---------- */
 function nav() {
@@ -236,7 +225,7 @@ function nav() {
   };
   tabs.forEach(b => b.addEventListener('click', () => show(b.dataset.t)));
   const esSeccion = k => { const el = k && document.getElementById(k); return !!el && el.tagName === 'SECTION'; };
-  const h = location.hash.slice(1); show(esSeccion(h) ? h : 'resumen');
+  const h = location.hash.slice(1); show(esSeccion(h) ? h : 'trabajo');
   window.addEventListener('hashchange', () => { const k = location.hash.slice(1); if (esSeccion(k)) show(k); });
   $('#btn-lang').addEventListener('click', () => {
     document.documentElement.lang = lang() === 'es' ? 'en' : 'es';
@@ -244,8 +233,7 @@ function nav() {
     $('#btn-lang').textContent = lang() === 'es' ? 'English' : 'Español'; todo();
     document.dispatchEvent(new Event('geih:idioma'));
   });
-  $('#btn-cop').addEventListener('change', e => { constantes = e.target.checked; todo(); });
-  $('#btn-mand').addEventListener('change', e => { verMandatos = e.target.checked; Object.values(charts).forEach(c => c.update()); });
+  $$('[data-bandas]').forEach(c => c.addEventListener('change', e => { const id = e.target.dataset.bandas; bandasOn[id] = e.target.checked; if (charts[id]) { charts[id].options.plugins.bandas.ver = e.target.checked; charts[id].update(); } }));
   $$('select[data-r]').forEach(s => s.addEventListener('change', () => ({ lab: laboral, pob: pobreza, ipm: ipm, salud: salud })[s.dataset.r]()));
   $('#lab-dsel').addEventListener('change', e => labDepto(e.target.value));
   $('#ipm-dsel').addEventListener('change', e => ipmDepto(e.target.value));
@@ -278,6 +266,6 @@ async function init() {
   opciones(); nav(); cifrasClave(); todo();
   document.dispatchEvent(new Event('geih:listo'));
 }
-window.GEIH = { mapa, ranking, nf, t, lang, NOMBRES };  // lo usa assets/tablero.js
+window.GEIH = { mapa, ranking, nf, t, lang, NOMBRES, datos: () => D };  // lo usa assets/tablero.js
 document.addEventListener('DOMContentLoaded', () => init().catch(e => { console.error(e); const b = $('#error'); if (b) { b.hidden = false; const d = b.querySelector('.det'); if (d) d.textContent = String(e.message || e); } }));
 })();
