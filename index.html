@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="es" data-version="20261025c">
+<html lang="es" data-version="20261106a">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -318,6 +318,17 @@ footer{border-top:1px solid var(--borde);color:var(--sub);font-size:13px;padding
 <p class="es">Los factores de cada mes de la GEIH suman la población total de ese mes (por eso los anexos mensuales reportan cerca de 52 millones de personas cada mes). Si se unen doce meses sin ajustar el factor, la suma equivale a doce veces la población. Para obtener niveles anuales, el factor debe ajustarse al número de meses agregados (por ejemplo, dividiéndolo por 12), tal como se indique en la documentación del estudio descargado. Las tasas (cocientes) no cambian con ese ajuste, pero los niveles en personas sí.</p>
 <p class="en">Each GEIH month's factors add up to that month's total population (hence monthly annexes report about 52 million people each month). Pooling twelve months without adjustment adds up to twelve times the population. For annual levels, adjust the factor to the number of pooled months (e.g., divide by 12) as the study documentation indicates. Rates (ratios) are unaffected; levels in persons are.</p>
 </div></details>
+<h3><span class="es">1.7 Tres factores de expansión distintos: cuál usar y por qué</span><span class="en">1.7 Three different expansion factors: which to use and why</span></h3>
+<p class="es">El DANE publica más de un factor de expansión porque cada uno está calibrado para reproducir una población distinta. La muestra mensual de la GEIH está diseñada para estimar el total nacional, las cabeceras, la zona rural y las 13 ciudades principales; los departamentos solo alcanzan precisión suficiente al acumular los doce meses. Por eso existe un factor departamental anual, que vuelve a ajustar los pesos a la población de cada departamento. Usar el factor equivocado no produce un error de programación visible, pero sí cifras distintas a las oficiales.</p>
+<p class="en">DANE publishes more than one expansion factor because each is calibrated to reproduce a different population. The monthly GEIH sample is designed to estimate the national total, urban centres, rural areas and the 13 main cities; departments only reach enough precision when the twelve months are pooled. Hence an annual departmental factor that re-weights to each department's population. Using the wrong factor raises no visible error but yields figures that differ from the official ones.</p>
+<div class="tabla"><table>
+<tr><th><span class="es">Factor</span><span class="en">Factor</span></th><th><span class="es">Dónde está</span><span class="en">Where</span></th><th><span class="es">Periodicidad y suma</span><span class="en">Frequency and total</span></th><th><span class="es">Para qué se usa</span><span class="en">Use</span></th><th><span class="es">Cómo agregarlo</span><span class="en">How to pool</span></th></tr>
+<tr><td><code>FEX_C18</code></td><td><span class="es">Cada módulo mensual de la GEIH (</span><span class="en">Each monthly GEIH module (</span><a href="https://microdatos.dane.gov.co/index.php/catalog/853" target="_blank" rel="noopener">853</a>, <a href="https://microdatos.dane.gov.co/index.php/catalog/900" target="_blank" rel="noopener">900</a>)</td><td><span class="es">Mensual: cada mes suma la población total del país (unos 52,6 millones en 2026)</span><span class="en">Monthly: each month adds up to the country's total population (about 52.6 million in 2026)</span></td><td><span class="es">Nacional, cabeceras, rural y 13 ciudades, por mes o trimestre; 23 ciudades con el año completo</span><span class="en">National, urban, rural and 13 cities by month or quarter; 23 cities over the full year</span></td><td><span class="es">Al unir k meses, dividir por k (12 para un año)</span><span class="en">When pooling k months, divide by k (12 for a year)</span></td></tr>
+<tr><td><code>FEX_DPTO</code></td><td><span class="es">Estudio «GEIH – Factores de Expansión Departamental 2007–2025» (</span><span class="en">Study "GEIH – Departmental Expansion Factors 2007–2025" (</span><a href="https://microdatos.dane.gov.co/index.php/catalog/789" target="_blank" rel="noopener">789</a>)<span class="es">; un archivo por año (en 2025, <code>TOTAL_25</code>)</span><span class="en">; one file per year (for 2025, <code>TOTAL_25</code>)</span></td><td><span class="es">Anual: la suma de los doce meses ya equivale a la población de los departamentos cubiertos (43,5 millones en 2025, 23 departamentos)</span><span class="en">Annual: the twelve months together already add up to the covered departments' population (43.5 million in 2025, 23 departments)</span></td><td><span class="es">Cifras departamentales anuales de mercado laboral, salud y demás temas de los módulos mensuales</span><span class="en">Annual departmental figures for labour, health and other monthly-module topics</span></td><td><span class="es"><b>No</b> se divide por 12. Se une a los módulos mensuales con <code>DIRECTORIO, SECUENCIA_P, ORDEN, MES</code></span><span class="en">Do <b>not</b> divide by 12. Merge with monthly modules on <code>DIRECTORIO, SECUENCIA_P, ORDEN, MES</code></span></td></tr>
+<tr><td><code>fex_c</code> / <code>fex_dpto</code></td><td><span class="es">Base «Medición de Pobreza Monetaria y Desigualdad» (</span><span class="en">"Monetary Poverty and Inequality" base (</span><a href="https://microdatos.dane.gov.co/index.php/catalog/908" target="_blank" rel="noopener">908</a>)</td><td><span class="es">Anuales, incluidos en las bases de personas y hogares</span><span class="en">Annual, included in the person and household files</span></td><td><span class="es"><code>fex_c</code>: pobreza, ingreso y Gini nacionales, por zona y ciudades; <code>fex_dpto</code>: los mismos indicadores por departamento</span><span class="en"><code>fex_c</code>: national, area and city poverty, income and Gini; <code>fex_dpto</code>: the same by department</span></td><td><span class="es">Según la documentación del estudio</span><span class="en">Per the study documentation</span></td></tr>
+</table></div>
+<p class="es">Bogotá D.C. y los departamentos de la Amazonía y la Orinoquía no aparecen en el archivo de factores departamentales de 2025, de forma consistente con el anexo departamental del DANE. Para Bogotá, la GEIH publica resultados como ciudad dentro de las 13 y 23 ciudades. El estudio 789 incluye además un «Factor de expansión retroproyectado 2010_2020» que, según su nombre y las notas de los anexos sobre la retroproyección con el CNPV 2018, permite expandir años anteriores con las proyecciones de población vigentes; consulte su documentación antes de usarlo.</p>
+<p class="en">Bogotá and the Amazon and Orinoquía departments are not in the 2025 departmental factor file, consistent with DANE's departmental annex. Bogotá is reported as a city within the 13 and 23 cities. Study 789 also includes a "Factor de expansión retroproyectado 2010_2020" which, judging by its name and the annex notes on back-projection with CNPV 2018, lets earlier years be expanded with current population projections; check its documentation before use.</p>
 <details><summary><span class="es">Precisión: error de muestreo, coeficiente de variación e intervalos de confianza</span><span class="en">Precision: sampling error, coefficient of variation and confidence intervals</span></summary><div>
 <p class="es">Como la cifra proviene de una muestra, otra muestra posible habría dado un resultado algo distinto. El <b>error estándar</b> mide esa variabilidad; el <b>coeficiente de variación</b> (CV = error estándar / estimación × 100) la expresa en porcentaje; y el <b>intervalo de confianza</b> al 95% (aproximadamente estimación ± 1,96 × error estándar) da un rango plausible para el valor poblacional. El DANE considera admisible un error de muestreo de hasta 5%. Como la GEIH y la ECV seleccionan conglomerados de viviendas (no personas sueltas), los errores deben calcularse con las variables de diseño (estratos y conglomerados) y no con fórmulas de muestreo aleatorio simple, que los subestiman.</p>
 <p class="en">Because the figure comes from a sample, another possible sample would yield a slightly different result. The <b>standard error</b> measures that variability; the <b>coefficient of variation</b> (CV = standard error / estimate × 100) expresses it in percent; and the 95% <b>confidence interval</b> (roughly estimate ± 1.96 × standard error) gives a plausible range for the population value. DANE deems a sampling error of up to 5% admissible. Since the GEIH and ECV select clusters of dwellings (not individual people), errors must be computed with design variables (strata and clusters), not simple-random-sampling formulas, which understate them.</p>
@@ -619,6 +630,39 @@ footer{border-top:1px solid var(--borde);color:var(--sub);font-size:13px;padding
  <figcaption><span class="es">Pasos 4 a 6: marque la casilla y luego pulse «Descargar». La ventana real del DANE puede variar en diseño.</span><span class="en">Steps 4–6: tick the box, then press "Descargar". DANE's real window may look different.</span></figcaption>
 </figure>
 </div>
+<h3><span class="es">7.2.1 Descarga de los factores de expansión departamentales (estudio 789)</span><span class="en">7.2.1 Downloading the departmental expansion factors (study 789)</span></h3>
+<ol class="pasos es">
+ <li>Abra <a href="https://microdatos.dane.gov.co/index.php/catalog/789" target="_blank" rel="noopener">microdatos.dane.gov.co/index.php/catalog/789</a>. El título es «Gran Encuesta Integrada de Hogares - GEIH - Factores de Expansión Departamental 2007 - 2025».</li>
+ <li>Haga clic en la pestaña «Obtener Microdatos». La lista «Archivos de datos» tiene un recuadro por año, de 2007 a 2025, y uno adicional, «Factor de expansión retroproyectado 2010_2020».</li>
+ <li>Descargue <b>solo el año que va a analizar</b> (por ejemplo, el último recuadro: «Factor expansion departamental 2025»). No necesita los demás años.</li>
+ <li>Pulse «Descargar», marque «No soy un robot» y pulse el «Descargar» de la ventana, como en los pasos 4 a 6.</li>
+ <li>Descomprima el archivo. Para 2025 contiene <code>TOTAL_25.DTA</code>, con seis variables: las llaves <code>DIRECTORIO, SECUENCIA_P, ORDEN, MES</code>, el código <code>DPTO</code> y el factor <code>FEX_DPTO</code>.</li>
+ <li>Únalo a los módulos mensuales del mismo año con esas cuatro llaves y use <code>FEX_DPTO</code>, sin dividirlo por 12, para las cifras por departamento (sección 1.7).</li>
+</ol>
+<ol class="pasos en">
+ <li>Open <a href="https://microdatos.dane.gov.co/index.php/catalog/789" target="_blank" rel="noopener">microdatos.dane.gov.co/index.php/catalog/789</a>. The title is "Gran Encuesta Integrada de Hogares - GEIH - Factores de Expansión Departamental 2007 - 2025".</li>
+ <li>Click the "Obtener Microdatos" tab. The "Archivos de datos" list has one box per year, 2007 to 2025, plus "Factor de expansión retroproyectado 2010_2020".</li>
+ <li>Download <b>only the year you will analyse</b> (e.g., the last box: "Factor expansion departamental 2025").</li>
+ <li>Press "Descargar", tick "No soy un robot" and press the pop-up's "Descargar", as in steps 4 to 6.</li>
+ <li>Unzip. For 2025 it contains <code>TOTAL_25.DTA</code> with six variables: keys <code>DIRECTORIO, SECUENCIA_P, ORDEN, MES</code>, code <code>DPTO</code> and factor <code>FEX_DPTO</code>.</li>
+ <li>Merge it with the same year's monthly modules on those four keys and use <code>FEX_DPTO</code>, without dividing by 12, for departmental figures (section 1.7).</li>
+</ol>
+<details><summary><span class="es">Ejemplo en Python: tasa de desocupación departamental con el factor correcto</span><span class="en">Python example: departmental unemployment with the right factor</span></summary><div>
+<pre># Fuente: Departamento Administrativo Nacional de Estadística: www.dane.gov.co
+import pandas as pd
+llaves = ["DIRECTORIO", "SECUENCIA_P", "ORDEN", "MES"]
+fex = pd.read_stata("TOTAL_25.DTA")                       # factores departamentales 2025
+ft = pd.concat(pd.read_stata(f"Fuerza_de_trabajo_{m}_2025.DTA", columns=llaves + ["FT"])
+               for m in ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio",
+                         "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"])
+for d in (ft, fex):                                       # unifique tipos de las llaves
+    d[llaves] = d[llaves].astype(float)
+ft = ft.merge(fex, on=llaves, how="inner")                # solo los 23 departamentos cubiertos
+# Ocupados: repita con el módulo Ocupados; aquí se muestra la fuerza de trabajo por departamento
+print((ft[ft["FT"] == 1].groupby("DPTO")["FEX_DPTO"].sum() / 1e3).round(1))  # miles de personas</pre>
+<p class="es">Confirme en el diccionario de datos el nombre y la codificación de <code>FT</code> y de las demás variables del año descargado.</p>
+<p class="en">Check the data dictionary for the name and coding of <code>FT</code> and other variables of that year.</p>
+</div></details>
 <details><summary><span class="es">Qué hacer si la descarga no funciona</span><span class="en">If the download does not work</span></summary><div>
 <ul class="es">
  <li><b>«No se ha validado el captcha».</b> Aparece si pulsa «Descargar» sin marcar la casilla. Márquela y vuelva a intentar.</li>
@@ -790,6 +834,6 @@ python scripts/01_construir_datos.py    # genera data/datos.json</pre>
 </main>
 </div>
 <footer><p>Fuente: Departamento Administrativo Nacional de Estadística: <a href="https://www.dane.gov.co">www.dane.gov.co</a> · Ministerio de Salud y Protección Social: <a href="https://minsalud.gov.co/Proteccion-Social/Paginas/cifras-aseguramiento-salud.aspx">cifras de afiliación en salud</a></p><span class="es">Repositorio académico de acceso abierto. Código: licencia MIT. Datos: DANE y Ministerio de Salud y Protección Social, citados en cada gráfico.</span><span class="en">Open-access academic repository. Code: MIT licence. Data: DANE and Ministry of Health, cited in each chart.</span> · <a href="https://github.com/doar95/geih-colombia">github.com/doar95/geih-colombia</a></footer>
-<script src="assets/app.js?v=20261025c"></script>
+<script src="assets/app.js?v=20261106a"></script>
 </body>
 </html>

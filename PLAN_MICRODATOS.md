@@ -61,8 +61,12 @@ predial, vehículos y renta (Otros ingresos e impuestos); variables de diseño (
   necesarias, convertir a tipos pequeños y acumular agregados (no concatenar todo el año en memoria).
 - Unión de módulos por `DIRECTORIO, SECUENCIA_P, ORDEN, MES` (personas) y `DIRECTORIO, SECUENCIA_P, MES` (hogares).
 - Factor para períodos agregados: `FEX_C18 / número de meses` (12 para 2025; 8 para ene–ago). Las tasas no
-  cambian; los niveles sí. Para departamentos 2025, usar el factor departamental del catálogo 789 si está
-  disponible (documentar cuál se usó en cada cifra).
+  cambian; los niveles sí.
+- Departamentos 2025: usar `FEX_DPTO` de `Factores_departamentales_2025\DTA\TOTAL_25.DTA` (verificado: 748.277
+  registros, variables `DIRECTORIO, SECUENCIA_P, ORDEN, MES, DPTO, FEX_DPTO`, 12 meses, 23 departamentos sin
+  Bogotá ni Amazonía-Orinoquía). **Es anual: la suma de los 12 meses ya da 43,5 millones; NO dividir por 12.**
+  Unir con los módulos mensuales por las cuatro llaves (convertir llaves a un mismo tipo). Bogotá se reporta
+  como ciudad con `FEX_C18/12`. Documentar en cada cifra qué factor se usó.
 - Base 908: unir Personas y Hogares por `directorio, secuencia_p, mes`; usar `fex_c` (nacional y zona) y
   `fex_dpto` (departamentos), según la documentación del estudio.
 - Deciles: de personas ordenadas por `ingpcug`, ponderados por `fex_c`.
