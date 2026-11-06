@@ -136,7 +136,8 @@ def deptos_anual(sheet):
         if len(ya) >= 3: anios = ya; continue
         if dep and anios and isinstance(c0, str):
             for nuevo, viejo in ETQ.items():
-                if c0.strip().startswith(viejo):
+                # Solo la primera coincidencia: «Fuerza de trabajo potencial» no debe sobrescribir a «Fuerza de trabajo».
+                if c0.strip().startswith(viejo) and nuevo not in out[dep]:
                     out[dep][nuevo] = {a: limpiar(fila[j]) for j, a in anios.items() if limpiar(fila[j]) is not None}
     return out
 D['lab_depto'] = {'total': deptos_anual('Departamentos anual'), 'hombres': deptos_anual('Departamentos anual hombres'),
@@ -245,7 +246,7 @@ D['ipm_dep'] = ipmd
 D['ipm_privaciones_dep'] = {cod(k): v for k, v in privaciones(IPD, 'IPM_Indicadores_Departamento ', 1).items() if cod(k)}
 
 # 8. Aseguramiento (registro administrativo, MinSalud) ----------------------
-af = json.load(open(EXT / 'minsalud_afiliacion_departamentos.json'))
+af = json.load(open(EXT / 'minsalud_afiliacion_departamentos.json', encoding='utf-8'))
 per = af['periodos']
 cob = {}
 for c, s in af['datos'].items():
@@ -271,10 +272,15 @@ cob['00'] = nac
 D['aseg_admin'] = cob
 
 # 9. IPC (base diciembre 2018 = 100): promedio anual -----------------------
-ipc = pd.read_csv(EXT / 'ipc_dane_mensual.csv')
-ipc['a'] = ipc['periodo'].str[:4].astype(int)
-g = ipc.groupby('a')['ipc'].agg(['mean', 'count'])
-D['ipc_anual'] = {int(a): round(r['mean'], 4) for a, r in g.iterrows() if r['count'] == 12}
+if (EXT / 'ipc_dane_mensual.csv').exists():
+    ipc = pd.read_csv(EXT / 'ipc_dane_mensual.csv')
+    ipc['a'] = ipc['periodo'].str[:4].astype(int)
+    g = ipc.groupby('a')['ipc'].agg(['mean', 'count'])
+    D['ipc_anual'] = {int(a): round(r['mean'], 4) for a, r in g.iterrows() if r['count'] == 12}
+else:
+    # El CSV no se versiona: sin él se conserva la serie vigente, nunca se reconstruye.
+    print('AVISO: falta data/externos/ipc_dane_mensual.csv; se conserva ipc_anual de data/datos.json.')
+    D['ipc_anual'] = json.load(open(OUT / 'datos.json', encoding='utf-8'))['ipc_anual']
 
 D['nombres_depto'] = {v: k for k, v in COD.items()}
 OUT.mkdir(parents=True, exist_ok=True)

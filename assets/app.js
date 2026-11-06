@@ -3,8 +3,8 @@
 (function () {
 'use strict';
 const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)];
-const C = { azul: '#3366CC', osc: '#004884', ama: '#FFAB00', rojo: '#A80521', verde: '#069169', gris: '#7A7A7A', cl: '#E6EFFD' };
-const SERIE = [C.osc, C.ama, C.verde, C.rojo, C.azul, C.gris];
+const C = { azul: '#3366CC', osc: '#004884', ocre: '#B26A00', rojo: '#A80521', verde: '#069169', gris: '#7A7A7A', cl: '#E6EFFD' };
+const SERIE = [C.osc, C.ocre, C.verde, C.rojo, C.azul, C.gris];
 const NOMBRES = { '05': 'Antioquia', '08': 'Atlántico', '11': 'Bogotá D.C.', '13': 'Bolívar', '15': 'Boyacá', '17': 'Caldas', '18': 'Caquetá', '19': 'Cauca', '20': 'Cesar', '23': 'Córdoba', '25': 'Cundinamarca', '27': 'Chocó', '41': 'Huila', '44': 'La Guajira', '47': 'Magdalena', '50': 'Meta', '52': 'Nariño', '54': 'Norte de Santander', '63': 'Quindío', '66': 'Risaralda', '68': 'Santander', '70': 'Sucre', '73': 'Tolima', '76': 'Valle del Cauca', '81': 'Arauca', '85': 'Casanare', '86': 'Putumayo', '88': 'San Andrés', '91': 'Amazonas', '94': 'Guainía', '95': 'Guaviare', '97': 'Vaupés', '99': 'Vichada' };
 const MANDATOS = [
   { n: 'Andrés Pastrana', i: '1998-08', f: '2002-07' }, { n: 'Álvaro Uribe (I)', i: '2002-08', f: '2006-07' },
@@ -45,7 +45,7 @@ const bandas = {
       const e = fa >= 0 ? fa : (+m.f.slice(0, 4) > +labs[labs.length - 1] && s >= 0 ? labs.length - 1 : -1);
       if (s < 0 || e < 0) return;
       const x0 = x.getPixelForValue(s), x1 = x.getPixelForValue(e);
-      ctx.save(); ctx.fillStyle = k % 2 ? 'rgba(51,102,204,.07)' : 'rgba(255,171,0,.09)';
+      ctx.save(); ctx.fillStyle = k % 2 ? 'rgba(51,102,204,.07)' : 'rgba(178,106,0,.09)';
       ctx.fillRect(x0, ar.top, Math.max(2, x1 - x0), ar.bottom - ar.top);
       ctx.fillStyle = getComputedStyle(document.body).getPropertyValue('--sub'); ctx.font = '10px Work Sans, sans-serif';
       ctx.fillText(m.n.split(' ').slice(-2).join(' '), x0 + 3, ar.top + 10 + (k % 2) * 11); ctx.restore();
@@ -117,7 +117,7 @@ function laboral() {
   const per = Object.keys(m.TD).sort();
   const ind = $('#lab-ind').value;
   const cab = D.lab_mensual['Total Cabeceras'];
-  linea('g-lab-mensual', per, [{ n: t('Total nacional', 'National total'), v: per.map(p => m[ind][p]) }, { n: t('Cabeceras', 'Urban centres'), v: per.map(p => val(cab[ind], p)), c: C.ama }], { y: '%' });
+  linea('g-lab-mensual', per, [{ n: t('Total nacional', 'National total'), v: per.map(p => m[ind][p]) }, { n: t('Cabeceras', 'Urban centres'), v: per.map(p => val(cab[ind], p)), c: C.ocre }], { y: '%' });
   const an = D.lab_anual['Total Nacional'], anos = Object.keys(an).sort();
   linea('g-lab-anual', anos, [{ n: 'TGP', v: anos.map(a => an[a].TGP) }, { n: 'TO', v: anos.map(a => an[a].TO), c: C.verde }, { n: 'TD', v: anos.map(a => an[a].TD), c: C.rojo }], { y: '%', anual: true });
   // departamentos
@@ -146,7 +146,7 @@ function labDepto(c) {
   if (!c || !D.lab_depto.total[c]) return; $('#lab-dsel').value = c;
   const anos = rango(2007, 2025), d = D.lab_depto.total[c], cb = D.lab_depto.cabeceras[c], ru = D.lab_depto.rural[c];
   const ii = $('#lab-dind').value;
-  linea('g-lab-depto', anos, [{ n: t('Total', 'Total'), v: anos.map(a => val(d[ii], a)) }, { n: t('Cabeceras', 'Urban centres'), v: anos.map(a => val(cb && cb[ii], a)), c: C.ama }, { n: t('Centros poblados y rural disperso', 'Rural areas'), v: anos.map(a => val(ru && ru[ii], a)), c: C.verde }], { y: '%', anual: true });
+  linea('g-lab-depto', anos, [{ n: t('Total', 'Total'), v: anos.map(a => val(d[ii], a)) }, { n: t('Cabeceras', 'Urban centres'), v: anos.map(a => val(cb && cb[ii], a)), c: C.ocre }, { n: t('Centros poblados y rural disperso', 'Rural areas'), v: anos.map(a => val(ru && ru[ii], a)), c: C.verde }], { y: '%', anual: true });
   $('#lab-dnom').textContent = NOMBRES[c];
 }
 function tablaMandatos() {
@@ -169,7 +169,7 @@ function pobreza() {
   const sel = $('#pob-dom').value;
   linea('g-ing', anos, [{ n: t('Ingreso per cápita de la unidad de gasto', 'Per capita income of the spending unit'), v: anos.map(a => defl(val(P.Ingpc[sel], a), +a)) },
     { n: t('Línea de pobreza (LP)', 'Poverty line (PL)'), v: anos.map(a => defl(val(P.LP[sel], a), +a)), c: C.rojo },
-    { n: t('Línea de pobreza extrema (LI)', 'Extreme poverty line (EPL)'), v: anos.map(a => defl(val(P.LI[sel], a), +a)), c: C.ama, dash: [5, 4] }],
+    { n: t('Línea de pobreza extrema (LI)', 'Extreme poverty line (EPL)'), v: anos.map(a => defl(val(P.LI[sel], a), +a)), c: C.ocre, dash: [5, 4] }],
     { anual: true, cero: true, fmt: cop, fmtEje: v => (v / 1000).toLocaleString(lang() === 'en' ? 'en-US' : 'es-CO') + t(' mil', 'k') });
   // ciudades
   const ciu = Object.keys(P.PM).filter(k => !dom.includes(k) && !/13 ciudades|Otras/.test(k));
@@ -207,7 +207,7 @@ function ipmDepto(c) {
 function salud() {
   const A = D.aseg_admin, anos = rango(2013, 2026).map(String);
   linea('g-aseg', anos, [{ n: t('Cobertura (afiliados / población)', 'Coverage (enrollees / population)'), v: anos.map(a => A['00'][a] ? A['00'][a].cobertura : null) }], { y: '%', anual: true, d: 2 });
-  linea('g-reg', anos, [{ n: t('Contributivo', 'Contributory'), v: anos.map(a => A['00'][a] ? A['00'][a].contributivo / 1e6 : null) }, { n: t('Subsidiado', 'Subsidised'), v: anos.map(a => A['00'][a] ? A['00'][a].subsidiado / 1e6 : null), c: C.verde }, { n: t('Excepción y especiales', 'Exception regimes'), v: anos.map(a => A['00'][a] ? A['00'][a].excepcion / 1e6 : null), c: C.ama }], { y: t('Millones de personas', 'Million people'), anual: true, d: 2, cero: true });
+  linea('g-reg', anos, [{ n: t('Contributivo', 'Contributory'), v: anos.map(a => A['00'][a] ? A['00'][a].contributivo / 1e6 : null) }, { n: t('Subsidiado', 'Subsidised'), v: anos.map(a => A['00'][a] ? A['00'][a].subsidiado / 1e6 : null), c: C.verde }, { n: t('Excepción y especiales', 'Exception regimes'), v: anos.map(a => A['00'][a] ? A['00'][a].excepcion / 1e6 : null), c: C.ocre }], { y: t('Millones de personas', 'Million people'), anual: true, d: 2, cero: true });
   const a = $('#aseg-ano').value, v = {};
   Object.entries(A).forEach(([c, s]) => { if (c !== '00') v[c] = s[a] ? s[a].cobertura : null; });
   mapa('m-aseg', v, { fmt: x => nf(x) + '%' });
@@ -232,6 +232,7 @@ function nav() {
     try { history.replaceState(null, '', '#' + id); } catch (e) {}
     window.scrollTo({ top: 0 });
     Object.values(charts).forEach(c => c.resize());
+    document.dispatchEvent(new CustomEvent('geih:seccion', { detail: id }));
   };
   tabs.forEach(b => b.addEventListener('click', () => show(b.dataset.t)));
   const esSeccion = k => { const el = k && document.getElementById(k); return !!el && el.tagName === 'SECTION'; };
@@ -241,6 +242,7 @@ function nav() {
     document.documentElement.lang = lang() === 'es' ? 'en' : 'es';
     try { localStorage.setItem('geih-lang', document.documentElement.lang); } catch (e) {}
     $('#btn-lang').textContent = lang() === 'es' ? 'English' : 'Español'; todo();
+    document.dispatchEvent(new Event('geih:idioma'));
   });
   $('#btn-cop').addEventListener('change', e => { constantes = e.target.checked; todo(); });
   $('#btn-mand').addEventListener('change', e => { verMandatos = e.target.checked; Object.values(charts).forEach(c => c.update()); });
@@ -274,6 +276,8 @@ async function init() {
   const leer = u => fetch(u + '?v=' + VER, { cache: 'no-cache' }).then(r => { if (!r.ok) throw new Error(u + ' (HTTP ' + r.status + ')'); return r.json(); });
   [D, GEO] = await Promise.all([leer('data/datos.json'), leer('data/departamentos.geojson')]);
   opciones(); nav(); cifrasClave(); todo();
+  document.dispatchEvent(new Event('geih:listo'));
 }
+window.GEIH = { mapa, ranking, nf, t, lang, NOMBRES };  // lo usa assets/tablero.js
 document.addEventListener('DOMContentLoaded', () => init().catch(e => { console.error(e); const b = $('#error'); if (b) { b.hidden = false; const d = b.querySelector('.det'); if (d) d.textContent = String(e.message || e); } }));
 })();

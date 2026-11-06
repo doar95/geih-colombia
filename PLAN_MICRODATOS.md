@@ -57,20 +57,44 @@ predial, vehículos y renta (Otros ingresos e impuestos); variables de diseño (
 
 ## 2. Método
 
-- Lectura con `pyreadstat` usando `usecols` (Ocupados pesa ~1 GB por mes): mes por mes, solo columnas
-  necesarias, convertir a tipos pequeños y acumular agregados (no concatenar todo el año en memoria).
+**Principio: tablas precalculadas.** Cada cifra que el tablero puede mostrar se calcula directamente de los microdatos,
+se protege y se escribe en `data/micro.json`. El navegador no suma ni deriva (sección 4).
+
+Lectura y uniones:
+
+- Lectura con `pyreadstat` usando `usecols`, mes por mes, y acumulación de agregados. No se escriben registros
+  individuales en disco ni se concatena todo el año en memoria.
 - Unión de módulos por `DIRECTORIO, SECUENCIA_P, ORDEN, MES` (personas) y `DIRECTORIO, SECUENCIA_P, MES` (hogares).
-- Factor para períodos agregados: `FEX_C18 / número de meses` (12 para 2025; 8 para ene–ago). Las tasas no
-  cambian; los niveles sí.
-- Departamentos 2025: usar `FEX_DPTO` de `Factores_departamentales_2025\DTA\TOTAL_25.DTA` (verificado: 748.277
-  registros, variables `DIRECTORIO, SECUENCIA_P, ORDEN, MES, DPTO, FEX_DPTO`, 12 meses, 23 departamentos sin
-  Bogotá ni Amazonía-Orinoquía). **Es anual: la suma de los 12 meses ya da 43,5 millones; NO dividir por 12.**
-  Unir con los módulos mensuales por las cuatro llaves (convertir llaves a un mismo tipo). Bogotá se reporta
-  como ciudad con `FEX_C18/12`. Documentar en cada cifra qué factor se usó.
-- Base 908: unir Personas y Hogares por `directorio, secuencia_p, mes`; usar `fex_c` (nacional y zona) y
-  `fex_dpto` (departamentos), según la documentación del estudio.
+  El proceso se detiene si un cruce queda incompleto o hay llaves duplicadas.
+- Agosto de 2026: varias llaves llegan como texto y lo no aplicable viene como 0 en vez de vacío. Normalizar las llaves a
+  un mismo tipo y comparar los indicadores con `== 1`. 0 en `P3042` no es un nivel educativo.
+
+Factores:
+
+- Nacional, cabeceras y rural: `FEX_C18 / número de meses` (12 para 2025; 8 para ene–ago). Las tasas no cambian; los niveles sí.
+- Departamentos 2025, laboral y salud: `FEX_DPTO` de `TOTAL_25.DTA` (748.277 registros, 12 meses, 23 departamentos, sin
+  Bogotá ni Amazonía-Orinoquía). **Es anual: suma 43,5 millones; NO dividir por 12.** Prevalece el `DPTO` de ese archivo: los
+  registros rurales de Bogotá figuran allí en Cundinamarca, y así se replica la cifra oficial.
+- Bogotá 2025: `FEX_C18/12`, solo cabecera; replica la TD oficial (hoja `Año_móvil_32_ciudades`).
+- Base 908: `fex_c` (nacional y zona) y `fex_dpto` (departamentos). `fex_dpto` es idéntico a `FEX_DPTO` en los 748.277
+  registros comunes y trae además a Bogotá.
+
+Indicadores de la fase 1:
+
+- Informalidad: traducción del código oficial del anexo EISS (hojas `Código_STATA` y `Código_SAS`); replica la hoja
+  `Prop informalidad`.
+- Agrupaciones: ver sección 4. Educación (`P3042`): ninguno 1-2, primaria 3, secundaria 4, media 5-7, superior 8-13.
+- Sin variables de diseño (estrato, conglomerado) en los archivos: no se calculan CV; rige el umbral de 300 encuestas en
+  el denominador de cada tasa.
+
+Fases siguientes, con las mismas reglas de publicación (sección 4). La tabla se calcula de los microdatos, no se suma después:
+
+- Base 908: unir Personas y Hogares por `directorio, secuencia_p, mes`. `lp`, `li`, `pobre`, `indigente` e `ingpcug` solo
+  están en Hogares; `dpto` trae nombres, no códigos.
 - Deciles: de personas ordenadas por `ingpcug`, ponderados por `fex_c`.
 - Clases sociales: umbrales de `anex-PMClasesSociales-2025.xlsx` (leer de la hoja y citar la hoja exacta).
+- Arriendo imputado: `ingtotarr − ingtotug` por unidad de gasto.
+- Montos de impuestos: 0 = no pagó; 98 = no sabe; 99 = no informa. Excluir 98 y 99 de los montos y contarlos aparte.
 - Contrafactual «sin ayudas institucionales»: restar la fuente de ayudas institucionales (IOF3I o IOF3IES,
   la que tenga valor) del ingreso de la unidad de gasto, recalcular `ingpcug` y comparar con `lp`. Presentar
   como ejercicio mecánico que no considera cambios de comportamiento.
@@ -90,52 +114,79 @@ predial, vehículos y renta (Otros ingresos e impuestos); variables de diseño (
 Tolerancia: diferencias ≤ 0,1 p.p. en tasas se consideran réplica. Si hay más, investigar (factor, universo,
 definición) y reportar.
 
-## 4. Salida: `data/micro.json` (cubo de resúmenes numéricos)
+## 4. Salida: `data/micro.json` (tablas precalculadas de resúmenes numéricos)
 
-Estructura sugerida (ajustar si se justifica, manteniendo el peso total ≤ 3 MB):
+**Diseño vigente: el navegador no suma ni deriva cifras.** Un cubo que se agrega en el navegador se descartó: al
+suprimir celdas, la suma de lo publicado se sesga (TD de Chocó 18,84 % frente a 12,83 % oficial). Por eso cada cifra
+se calcula directamente de los microdatos y el tablero solo la busca. Peso total ≤ 3 MB.
+
+Tablas de la fase 1 (mercado laboral y salud):
+
+- `nacional.*`, por dominio (nacional, cabeceras, rural) y período (2025, ene-ago 2025, ene-ago 2026): `total`, `sexo`,
+  `edad`, `educ`, `sexo_edad`, `sexo_educ`.
+- `departamental.*`, solo 2025 y 24 entidades (23 departamentos y Bogotá): `total`, `sexo`, `zona`, `edad`
+  (15-28, 29-44, 45-64, 65+; salud agrega 0-14), `educ`. Sin dobles cruces.
+
+Medidas: `tgp`, `to`, `td`, `inf`, `cot_pension`, `oc_afil`, `nini` (15-28; no se publica por edad) y salud de toda la
+población: `afil`, `contrib`, `especial`, `subsid` en nacional; `afil`, `contrib_especial`, `subsid` en departamental.
 
 ```json
 {
   "meta": {"generado": "...", "fuente": "Fuente: Departamento Administrativo Nacional de Estadística: www.dane.gov.co",
-           "umbral": {"tipo": "n_min | cv", "valor": 300}, "factor": "FEX_C18/12 | departamental 789", "notas": []},
-  "dims": {"periodo": ["2025", "ene-ago 2025", "ene-ago 2026"], "dpto": ["00","05",...], "zona": ["cab","rur"],
-           "sexo": ["h","m"], "edad": ["15-24","25-34","35-44","45-54","55-64","65+"], "educ": ["ninguno","primaria","secundaria","media","superior"]},
-  "cubos": {
-    "laboral": {"dims": ["periodo","dpto","zona","sexo","edad","educ"],
-                "medidas": ["n","pet","ft","oc","ds","inf","cot_pension"],
-                "celdas": [[0,0,0,0,0,0, 1234, 5.6e5, ...], ...]},
-    "salud":   {"dims": ["periodo","dpto","zona","sexo","edad"], "medidas": ["n","pob","contrib","subsid","especial","no_afil","nsnr"], "celdas": []},
-    "ingreso_2025": {"dims": ["dpto","zona","decil"], "medidas": ["n","pob","pobres","indig","pobres_sin_ayudas","ing_trab","ing_pens","ing_capital","ing_ayu_hog","ing_ayu_inst","ing_arr_imp"], "celdas": []},
-    "clases_2025": {"dims": ["dpto","zona","sexo_jefe","educ_jefe"], "medidas": ["n","pob","pobre","vulnerable","media","alta"], "celdas": []}
+           "formato": "...", "medidas": {}, "reglas": {}, "notas": [], "controles": {}},
+  "dims": {"dominio": [], "periodo": [], "dpto": [], "zona": [], "sexo": [], "edad": [], "edad_dpto": [], "educ": []},
+  "tablas": {
+    "departamental.total": {"dims": ["dpto"], "medidas": ["tgp", "to", "td"],
+                            "filas": [[11, [22123, 394976, 38.8051, 51.39], [22123, 394976, 33.8273, 38.6747], [11369, 153271, 12.8277, 24.7427]]]}
   },
-  "validacion": [{"cifra": "...", "propia": 0, "oficial": 0, "diferencia": 0}]
+  "validacion_resumen": [{"grupo": "...", "comparaciones": 0, "dif_abs_max": 0, "replica": true}],
+  "validacion": [{"grupo": "...", "periodo": "...", "propia": 0, "oficial": 0, "diferencia": 0, "fuente": "..."}]
 }
 ```
 
-- `n` = número de encuestas (personas sin ponderar). Las demás medidas = suma de factores de expansión.
-- En 2026, `dpto` solo admite `00` (nacional): no generar celdas departamentales para ese período.
-- Fase 2 (después): `migracion`, `cuidado` (otras formas de trabajo), `impuestos_2025` por decil.
+- Cada fila: índices de `dims` y una entrada por medida. Entrada: `[n del denominador, población representada, valor
+  ponderado %, valor sin ponderar %]`; `"P"` = precisión insuficiente; `"C"` = reservada por confidencialidad; `null` = no
+  aplica. Las reservadas no llevan ningún número.
+- Reglas al publicar (aplicadas en el archivo, porque el JSON es público):
+  1. **Precisión:** denominador con menos de 300 encuestas → `P` (regla sobre el denominador de cada tasa).
+  2. **Confidencialidad:** todo conteo publicado o derivable por resta debe ser 0 o ≥ 10. Las cifras que se derivan entre
+     sí (TGP, TO, TD; regímenes de salud) se suprimen juntas.
+  3. **Secundaria:** en cada grupo (padre e hijos, incluido nacional = cabeceras + rural) no puede quedar una sola cifra
+     reservada, ni un residuo con conteos de 1 a 9. También se aplica a las de precisión insuficiente, solo en esa cifra.
+  4. **Resta de períodos:** 2025 menos ene-ago 2025 tampoco puede dejar conteos de 1 a 9; se reserva el período más corto.
+- Agrupaciones: afiliados sin dato de régimen en contributivo; quienes no informan afiliación quedan en población menos
+  afiliados; régimen especial con contributivo en departamentos; los 5 registros de PET sin nivel educativo con «ninguno».
+- En 2026 no hay filas departamentales (regla 5).
+- `validacion` compara con la cifra oficial; el grupo «Tablas: …» compara la cifra publicada en el JSON.
+- Fases siguientes, con este mismo diseño: `ingreso_2025`, `clases_2025`, `migracion`, `cuidado` (otras formas de trabajo)
+  e `impuestos_2025` por decil.
 
 ## 5. El tablero en el sitio
 
-- Nueva pestaña **principal**, inmediatamente después de «Resumen del estudio» y antes de «Las fuentes».
-  Nombre: «Tablero: juegue con los factores de expansión (microdatos GEIH 2025–2026)». Grupo del menú:
-  «Tablero de microdatos». Las demás secciones se mantienen debajo y se renumeran.
-- Barra de filtros (slicers) fija arriba: tema (mercado laboral, salud, ingreso y pobreza 2025, clases sociales
-  2025), período, departamento, zona, sexo, edad, educación. Desactivar automáticamente los filtros que el
-  período no permite (p. ej., departamento en 2026) explicando por qué.
-- Para la selección actual, mostrar siempre tres tarjetas: **encuestas** (n), **población representada**
-  (suma de factores) y la **cifra ponderada**, junto con la **cifra sin ponderar** para comparar. Este es el
-  «juego»: el lector ve cómo cambia el resultado cuando se usan o no los factores.
-- Si la celda queda bajo el umbral: no mostrar la cifra y explicar «muestra insuficiente para esta combinación».
-- Gráfico de barras por la dimensión que elija el lector, mapa departamental (solo 2025) y tabla descargable en
-  CSV de los resúmenes visibles (son agregados, no microdatos).
-- Debajo del tablero, en listas desplegables: qué es un factor de expansión, cómo se agrega por meses, cómo se
-  unen los módulos, cómo se calculó cada medida (variables exactas), umbral de supresión, tabla de validación,
-  limitaciones (representatividad, sismo de agosto de 2026, ingresos 2026 no corregidos, contrafactual mecánico)
-  y la cita obligatoria del DANE.
-- Bilingüe (español base, inglés alternativo), paleta gov.co ya definida en `index.html`, sin logos oficiales.
-- Mantener el aviso de COP corrientes por defecto y el conversor a constantes para los montos del ingreso.
+- Pestaña **principal**, inmediatamente después de «Resumen del estudio» y antes de «Las fuentes»: sección 1,
+  «Tablero: juegue con los factores de expansión (microdatos GEIH 2025–2026)», en el grupo «Tablero de microdatos». Las
+  demás secciones se mantienen debajo y están renumeradas (2 a 11).
+- **El tablero solo busca cifras en `data/micro.json`:** no suma, no resta y nunca calcula una cifra reservada a partir de
+  otras. Lógica en `assets/tablero.js`; reutiliza `mapa()` y `ranking()` de `assets/app.js`.
+- Filtros fijos arriba (en pantallas de hasta 900 px no son fijos, porque ocuparían gran parte de la pantalla): tema,
+  indicador, período, nivel (nacional, cabeceras, rural, departamento), departamento y hasta dos cruces permitidos por las
+  tablas. Se desactiva lo que no existe y se explica por qué: departamentos fuera de 2025, doble cruce en departamentos,
+  edad en ni-ni, edad × educación, y contributivo y especial por separado en departamentos.
+- Se abre con TD de Chocó 2025 (12,83 % ponderada frente a 24,74 % sin ponderar).
+- Tarjetas: **encuestas** (n del denominador), **población representada**, **cifra ponderada** y **cifra sin ponderar**, con
+  una frase que explica la diferencia. Muestran el total de la selección; los cruces van en el gráfico y en la tabla.
+- Cifras reservadas, sin números: «P = precisión insuficiente (menos de 300 encuestas en el denominador)» y «C = reservada
+  por confidencialidad (Ley 79 de 1993)».
+- Gráfico de barras por el cruce elegido (ponderada y sin ponderar; en doble cruce, hombres y mujeres con selector de cifra),
+  mapa departamental (solo 2025) y tabla descargable en CSV de las cifras visibles (son resúmenes, no microdatos).
+- Debajo, en listas desplegables: factores usados (ver sección 2.7), uniones entre módulos, definición de cada indicador con
+  sus variables, reglas de supresión, agrupaciones, tabla de validación, limitaciones (sin variables de diseño,
+  representatividad, sismo de agosto de 2026) y la cita obligatoria del DANE.
+- Bilingüe (clases `.es` y `.en`), paleta gov.co ya definida en `index.html`, sin logos oficiales, y versión en
+  `data-version` para evitar caché. **El amarillo `#FFAB00` solo se usa como relleno con borde;** nunca en líneas, puntos ni
+  texto sobre fondo claro (en su lugar, `--ocre`, `#B26A00`).
+- Fases siguientes: al agregar ingreso y pobreza, mantener el aviso de COP corrientes por defecto, el conversor a constantes
+  y las advertencias de ingresos 2026 no corregidos y contrafactual mecánico.
 
 ## 6. Archivos a crear o modificar
 

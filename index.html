@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="es" data-version="20261106a">
+<html lang="es" data-version="20261106c">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -21,7 +21,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <style>
-:root{--azul:#3366CC;--azul-osc:#004884;--azul-cl:#E6EFFD;--amarillo:#FFAB00;--rojo:#A80521;--verde:#069169;--fondo:#FFFFFF;--panel:#FAFBFD;--texto:#1F1F1F;--sub:#5C5C5C;--borde:#D9D9D9;--gris-cl:#F2F2F2;--nodato:#ECECEC;--alerta:#FFF4D6}
+:root{--azul:#3366CC;--azul-osc:#004884;--azul-cl:#E6EFFD;--amarillo:#FFAB00;--ocre:#B26A00;--rojo:#A80521;--verde:#069169;--fondo:#FFFFFF;--panel:#FAFBFD;--texto:#1F1F1F;--sub:#5C5C5C;--borde:#D9D9D9;--gris-cl:#F2F2F2;--nodato:#ECECEC;--alerta:#FFF4D6}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--azul:#7FA6F0;--azul-osc:#A9C3F5;--azul-cl:#1B2A44;--fondo:#14171C;--panel:#191D23;--texto:#ECECEC;--sub:#B5B5B5;--borde:#3A3F48;--gris-cl:#262A31;--nodato:#2C3036;--alerta:#3A3120}}
 :root[data-theme="dark"]{--azul:#7FA6F0;--azul-osc:#A9C3F5;--azul-cl:#1B2A44;--fondo:#14171C;--panel:#191D23;--texto:#ECECEC;--sub:#B5B5B5;--borde:#3A3F48;--gris-cl:#262A31;--nodato:#2C3036;--alerta:#3A3120}
 *{box-sizing:border-box}
@@ -33,7 +33,7 @@ header.top .marca{font-weight:600;letter-spacing:.2px}
 header.top .marca small{display:block;font-weight:400;opacity:.85;font-size:13px}
 .ctrl{display:flex;flex-wrap:wrap;gap:10px;align-items:center;font-size:14px}
 .ctrl button,.ctrl label{background:#fff;color:#004884;border:0;border-radius:4px;padding:6px 10px;font:inherit;font-weight:600;cursor:pointer;display:flex;gap:6px;align-items:center}
-.franja{height:5px;background:linear-gradient(90deg,#FFAB00 0 33%,#3366CC 33% 66%,#A80521 66%)}
+.franja{height:6px;background:linear-gradient(90deg,#FFAB00 0 33%,#3366CC 33% 66%,#A80521 66%);border-bottom:1px solid var(--borde)}
 .layout{display:grid;grid-template-columns:270px minmax(0,1fr);max-width:1400px;margin:0 auto}
 nav.tabs{position:sticky;top:0;align-self:start;height:100vh;overflow:auto;border-right:1px solid var(--borde);padding:18px 0;background:var(--panel)}
 nav.tabs button{display:block;width:100%;text-align:left;background:none;border:0;border-left:4px solid transparent;padding:11px 18px;font:inherit;font-size:15px;color:var(--texto);cursor:pointer;line-height:1.35}
@@ -62,7 +62,7 @@ p,li{max-width:78ch}
 .fuente{font-size:12.5px;color:var(--sub);margin:.6em 0 0}
 .dos{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:16px}
 .mapa{position:relative}.mapa svg{width:100%;max-height:540px}
-.mapa path{stroke:var(--fondo);stroke-width:.6;cursor:pointer}.mapa path:hover{stroke:var(--amarillo);stroke-width:1.6}
+.mapa path{stroke:var(--fondo);stroke-width:.6;cursor:pointer}.mapa path:hover{stroke:var(--texto);stroke-width:1.6}
 .tip{position:absolute;background:var(--texto);color:var(--fondo);padding:4px 8px;font-size:13px;border-radius:3px;pointer-events:none;white-space:nowrap}
 .leyenda{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--sub);flex-wrap:wrap}
 .leyenda i{display:inline-block;width:120px;height:10px}.leyenda b.nd{display:inline-block;width:14px;height:10px;background:var(--nodato);margin-left:10px}
@@ -78,7 +78,7 @@ table{border-collapse:collapse;width:100%;font-size:14px;margin:10px 0;font-vari
 th,td{border-bottom:1px solid var(--borde);padding:6px 8px;text-align:left;vertical-align:top}
 th{background:var(--gris-cl);font-weight:600}
 .tabla{overflow-x:auto}
-.aviso{border-left:4px solid var(--amarillo);background:var(--alerta);padding:10px 14px;margin:12px 0;font-size:14.5px}
+.aviso{border-left:4px solid var(--ocre);background:var(--alerta);padding:10px 14px;margin:12px 0;font-size:14.5px}
 .aviso.rojo{border-left-color:var(--rojo)}
 .aviso-constantes{border-left:4px solid var(--rojo);background:var(--alerta);padding:8px 12px;margin:8px 0;font-size:14px;font-weight:500}
 .notas{font-size:13.5px;color:var(--sub);border-top:1px solid var(--borde);margin-top:30px;padding-top:8px}
@@ -90,13 +90,13 @@ ol.pasos>li{margin:.6em 0}
 .cal{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px}
 .cal div{border:1px solid var(--borde);padding:8px;font-size:13px;background:var(--panel)}
 .cal div b{display:block;color:var(--azul-osc)}
-.cal .conf{border-top:4px solid var(--verde)}.cal .hab{border-top:4px dashed var(--amarillo)}
+.cal .conf{border-top:4px solid var(--verde)}.cal .hab{border-top:4px dashed var(--ocre)}
 nav.tabs p.grupo{margin:14px 18px 2px;font-size:11.5px;text-transform:uppercase;letter-spacing:.08em;color:var(--sub);font-weight:600}
 .cita-dane{display:block;margin-top:3px;font-style:italic}
 figure.diagrama{margin:10px 0 18px;border:1px solid var(--borde);background:var(--panel);padding:10px}
 figure.diagrama svg{width:100%;height:auto;display:block}
 figure figcaption{font-size:12.5px;color:var(--sub);margin-top:6px}
-.dg-osc{fill:#004884}.dg-geih{fill:var(--azul-cl);stroke:#3366CC;stroke-width:2}.dg-ecv{fill:var(--alerta);stroke:#FFAB00;stroke-width:2}
+.dg-osc{fill:#004884}.dg-geih{fill:var(--azul-cl);stroke:#3366CC;stroke-width:2}.dg-ecv{fill:var(--alerta);stroke:var(--ocre);stroke-width:2}
 .dg-comun{fill:var(--fondo);stroke:var(--sub);stroke-width:1.5;stroke-dasharray:5 4}.dg-prod{fill:var(--fondo);stroke:var(--borde);stroke-width:1.5}
 .dg-no{fill:var(--gris-cl);stroke:#A80521;stroke-width:1.5}
 .diagrama text{text-anchor:middle;fill:var(--texto);font-family:"Work Sans",sans-serif}
@@ -124,6 +124,35 @@ footer{border-top:1px solid var(--borde);color:var(--sub);font-size:13px;padding
  .rk{grid-template-columns:110px 1fr 70px}
  footer{padding:16px}
 }
+.tb-filtros{position:sticky;top:0;z-index:4;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px 12px;background:var(--panel);border:1px solid var(--borde);border-top:3px solid var(--azul-osc);padding:10px 12px;margin:14px 0 6px}
+.tb-filtros label{display:flex;flex-direction:column;gap:2px;font-size:12.5px;font-weight:600;color:var(--sub);min-width:0}
+.tb-filtros select,.tb-h select{font:inherit;font-size:14px;font-weight:400;padding:5px 6px;border:1px solid var(--borde);background:var(--fondo);color:var(--texto);border-radius:3px;width:100%;min-width:0}
+.tb-filtros select:disabled{opacity:.55;background:var(--gris-cl)}
+.tb-filtros select:focus-visible,.tb-btn:focus-visible{outline:2px solid var(--azul);outline-offset:1px}
+.tb-ancho{grid-column:span 2}
+.tb-avisos{font-size:13px;color:var(--sub);margin:6px 0 14px;padding-left:18px}
+.tb-avisos li{margin:.2em 0;max-width:none}
+.tb-sel{font-family:"Source Serif 4",Georgia,serif;font-size:19px;color:var(--azul-osc);margin:14px 0 0}
+.tb-kpis{grid-template-columns:repeat(4,minmax(0,1fr));margin:10px 0}
+.tb-kpis .kpi b{font-variant-numeric:tabular-nums}
+.tb-kpi-sp{border-top-color:var(--ocre)}
+.tb-frase{border-left:4px solid var(--azul);padding:4px 12px;margin:10px 0;max-width:none}
+.tb-h{margin:0 0 8px;font-size:17px}
+.tb-cab{display:flex;flex-wrap:wrap;gap:8px;justify-content:space-between;align-items:center;margin-bottom:6px}
+.tb-cab .tb-h{margin:0}
+.tb-btn{font:inherit;font-size:14px;font-weight:600;background:var(--azul-osc);color:var(--fondo);border:0;border-radius:4px;padding:6px 12px;cursor:pointer}
+.tb-total td{font-weight:600}
+.tb-ley{font-size:13.5px;margin:8px 0 0;max-width:none}
+.tb-msg{font-size:14.5px;color:var(--sub);margin:4px 0;max-width:none}
+#tb-graf-caja{height:auto}
+.mapa path.sel{stroke:var(--texto);stroke-width:2}
+#tablero [hidden]{display:none!important}
+#tb-cifra-caja select{max-width:220px}
+@media (max-width:900px){
+ .tb-filtros{position:static;grid-template-columns:repeat(2,minmax(0,1fr))}
+ .tb-kpis{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .tb-kpis .kpi b{font-size:22px}
+}
 </style>
 </head>
 <body>
@@ -141,22 +170,24 @@ footer{border-top:1px solid var(--borde);color:var(--sub);font-size:13px;padding
 <div class="layout">
 <nav class="tabs" aria-label="Secciones">
 <button data-t="resumen"><span class="es">Resumen del estudio</span><span class="en">Study abstract</span><small><span class="es">Brief, cifras clave y cita</span><span class="en">Brief, key figures, citation</span></small></button>
+<p class="grupo"><span class="es">Tablero de microdatos</span><span class="en">Microdata dashboard</span></p>
+<button data-t="tablero"><span class="es">1. Tablero: juegue con los factores de expansión</span><span class="en">1. Dashboard: play with the expansion factors</span><small><span class="es">Microdatos GEIH 2025–2026</span><span class="en">GEIH microdata 2025–2026</span></small></button>
 <p class="grupo"><span class="es">Las fuentes</span><span class="en">The sources</span></p>
-<button data-t="fuentes"><span class="es">1. GEIH y ECV: qué son y cómo se relacionan</span><span class="en">1. GEIH and ECV: what they are and how they relate</span><small><span class="es">Diagrama, alcance, diseño y factores de expansión</span><span class="en">Diagram, scope, design, expansion factors</span></small></button>
+<button data-t="fuentes"><span class="es">2. GEIH y ECV: qué son y cómo se relacionan</span><span class="en">2. GEIH and ECV: what they are and how they relate</span><small><span class="es">Diagrama, alcance, diseño y factores de expansión</span><span class="en">Diagram, scope, design, expansion factors</span></small></button>
 <p class="grupo"><span class="es">Indicadores con la GEIH</span><span class="en">Indicators from the GEIH</span></p>
-<button data-t="laboral"><span class="es">2. Mercado laboral</span><span class="en">2. Labour market</span><small><span class="es">Participación, ocupación, desocupación, informalidad</span><span class="en">Participation, employment, unemployment, informality</span></small></button>
-<button data-t="pobreza"><span class="es">3. Pobreza monetaria y desigualdad</span><span class="en">3. Monetary poverty and inequality</span><small><span class="es">Incidencia, brecha, severidad, Gini</span><span class="en">Headcount, gap, severity, Gini</span></small></button>
+<button data-t="laboral"><span class="es">3. Mercado laboral</span><span class="en">3. Labour market</span><small><span class="es">Participación, ocupación, desocupación, informalidad</span><span class="en">Participation, employment, unemployment, informality</span></small></button>
+<button data-t="pobreza"><span class="es">4. Pobreza monetaria y desigualdad</span><span class="en">4. Monetary poverty and inequality</span><small><span class="es">Incidencia, brecha, severidad, Gini</span><span class="en">Headcount, gap, severity, Gini</span></small></button>
 <p class="grupo"><span class="es">Indicadores con la ECV</span><span class="en">Indicators from the ECV</span></p>
-<button data-t="ipm"><span class="es">4. Pobreza multidimensional</span><span class="en">4. Multidimensional poverty</span><small><span class="es">IPM: 5 dimensiones, 15 privaciones</span><span class="en">MPI: 5 dimensions, 15 deprivations</span></small></button>
+<button data-t="ipm"><span class="es">5. Pobreza multidimensional</span><span class="en">5. Multidimensional poverty</span><small><span class="es">IPM: 5 dimensiones, 15 privaciones</span><span class="en">MPI: 5 dimensions, 15 deprivations</span></small></button>
 <p class="grupo"><span class="es">Indicadores con varias fuentes</span><span class="en">Multi-source indicators</span></p>
-<button data-t="salud"><span class="es">5. Aseguramiento en salud</span><span class="en">5. Health insurance coverage</span><small><span class="es">MinSalud, GEIH y ECV</span><span class="en">Ministry of Health, GEIH and ECV</span></small></button>
+<button data-t="salud"><span class="es">6. Aseguramiento en salud</span><span class="en">6. Health insurance coverage</span><small><span class="es">MinSalud, GEIH y ECV</span><span class="en">Ministry of Health, GEIH and ECV</span></small></button>
 <p class="grupo"><span class="es">Uso de los datos</span><span class="en">Using the data</span></p>
-<button data-t="comparabilidad"><span class="es">6. Comparabilidad regional y temporal</span><span class="en">6. Regional and temporal comparability</span><small><span class="es">Cortes de serie, dominios y mandatos</span><span class="en">Series breaks, domains, terms</span></small></button>
-<button data-t="acceso"><span class="es">7. Acceso y descarga de los datos</span><span class="en">7. Data access and download</span><small><span class="es">Anexos, microdatos y verificación de robot</span><span class="en">Annexes, microdata, robot check</span></small></button>
-<button data-t="calendario"><span class="es">8. Calendario de publicación</span><span class="en">8. Release calendar</span><small><span class="es">Fechas verificadas y periodicidad</span><span class="en">Verified dates and frequency</span></small></button>
+<button data-t="comparabilidad"><span class="es">7. Comparabilidad regional y temporal</span><span class="en">7. Regional and temporal comparability</span><small><span class="es">Cortes de serie, dominios y mandatos</span><span class="en">Series breaks, domains, terms</span></small></button>
+<button data-t="acceso"><span class="es">8. Acceso y descarga de los datos</span><span class="en">8. Data access and download</span><small><span class="es">Anexos, microdatos y verificación de robot</span><span class="en">Annexes, microdata, robot check</span></small></button>
+<button data-t="calendario"><span class="es">9. Calendario de publicación</span><span class="en">9. Release calendar</span><small><span class="es">Fechas verificadas y periodicidad</span><span class="en">Verified dates and frequency</span></small></button>
 <p class="grupo"><span class="es">Cierre</span><span class="en">Closing</span></p>
-<button data-t="discusion"><span class="es">9. Discusión y limitaciones</span><span class="en">9. Discussion and limitations</span><small><span class="es">Advertencias metodológicas</span><span class="en">Methodological caveats</span></small></button>
-<button data-t="creditos"><span class="es">10. Autoría, normativa y referencias</span><span class="en">10. Authorship, legal basis, references</span><small><span class="es">Agradecimientos y fuentes</span><span class="en">Acknowledgements and sources</span></small></button>
+<button data-t="discusion"><span class="es">10. Discusión y limitaciones</span><span class="en">10. Discussion and limitations</span><small><span class="es">Advertencias metodológicas</span><span class="en">Methodological caveats</span></small></button>
+<button data-t="creditos"><span class="es">11. Autoría, normativa y referencias</span><span class="en">11. Authorship, legal basis, references</span><small><span class="es">Agradecimientos y fuentes</span><span class="en">Acknowledgements and sources</span></small></button>
 </nav>
 <main>
 
@@ -181,13 +212,13 @@ footer{border-top:1px solid var(--borde);color:var(--sub);font-size:13px;padding
   <h4><span class="es">Resumen estructurado</span><span class="en">Structured abstract</span></h4>
   <dl class="abs es">
    <dt>Objetivo</dt><dd>Reunir, documentar y hacer comparables, en un solo repositorio de acceso abierto, los indicadores oficiales de mercado laboral, pobreza monetaria, pobreza multidimensional, desigualdad del ingreso y aseguramiento en salud de Colombia, con explicaciones pedagógicas sobre su medición.</dd>
-   <dt>Datos y métodos</dt><dd>Se utilizan los anexos estadísticos oficiales del Departamento Administrativo Nacional de Estadística (DANE) derivados de la Gran Encuesta Integrada de Hogares (GEIH) y de la Encuesta Nacional de Calidad de Vida (ECV), complementados con los registros de afiliación al Sistema General de Seguridad Social en Salud (SGSSS) del Ministerio de Salud y Protección Social y con el Índice de Precios al Consumidor (IPC). Las cifras se presentan tal como las publica la entidad; los únicos cálculos propios (promedios anuales de series mensuales, conversión a pesos constantes, cobertura administrativa y promedios por período de gobierno) se identifican de forma explícita.</dd>
+   <dt>Datos y métodos</dt><dd>Se utilizan los anexos estadísticos oficiales del Departamento Administrativo Nacional de Estadística (DANE) derivados de la Gran Encuesta Integrada de Hogares (GEIH) y de la Encuesta Nacional de Calidad de Vida (ECV), complementados con los registros de afiliación al Sistema General de Seguridad Social en Salud (SGSSS) del Ministerio de Salud y Protección Social y con el Índice de Precios al Consumidor (IPC). Las cifras se presentan tal como las publica la entidad; los cálculos propios (promedios anuales de series mensuales, conversión a pesos constantes, cobertura administrativa, promedios por período de gobierno y las cifras del tablero de microdatos) se identifican de forma explícita.</dd>
    <dt>Resultados</dt><dd>Se presentan series de tiempo nacionales (2001–2026 para mercado laboral; 2012–2025 para pobreza monetaria y Gini; 2010–2025 para el IPM), mapas departamentales y comparaciones entre ciudades, cabeceras y zonas rurales.</dd>
    <dt>Conclusiones</dt><dd>El estudio es retrospectivo y descriptivo. No establece relaciones causales y puede actualizarse a medida que el DANE publique nuevas encuestas y anexos.</dd>
   </dl>
   <dl class="abs en">
    <dt>Objective</dt><dd>To gather, document and make comparable, in a single open-access repository, Colombia's official indicators on the labour market, monetary poverty, multidimensional poverty, income inequality and health insurance, together with teaching material on how they are measured.</dd>
-   <dt>Data and methods</dt><dd>We use the official statistical annexes of the National Administrative Department of Statistics (DANE) derived from the Integrated Household Survey (GEIH) and the National Quality of Life Survey (ECV), complemented by enrolment records of the General Social Security Health System (SGSSS) from the Ministry of Health and Social Protection, and the Consumer Price Index (CPI). Figures are shown as published; the only own calculations (annual means of monthly series, constant-price conversion, administrative coverage and averages by government term) are explicitly flagged.</dd>
+   <dt>Data and methods</dt><dd>We use the official statistical annexes of the National Administrative Department of Statistics (DANE) derived from the Integrated Household Survey (GEIH) and the National Quality of Life Survey (ECV), complemented by enrolment records of the General Social Security Health System (SGSSS) from the Ministry of Health and Social Protection, and the Consumer Price Index (CPI). Figures are shown as published; own calculations (annual means of monthly series, constant-price conversion, administrative coverage, averages by government term and the microdata dashboard figures) are explicitly flagged.</dd>
    <dt>Results</dt><dd>National time series (2001–2026 labour market; 2012–2025 monetary poverty and Gini; 2010–2025 MPI), departmental maps, and comparisons across cities, urban and rural areas.</dd>
    <dt>Conclusions</dt><dd>The study is retrospective and descriptive. It makes no causal claims and can be updated as DANE releases new surveys and annexes.</dd>
   </dl>
@@ -213,18 +244,166 @@ footer{border-top:1px solid var(--borde);color:var(--sub);font-size:13px;padding
  <div class="kpi"><b><span data-k="ipm25"></span>%</b><span class="es">Pobreza multidimensional nacional, 2025</span><span class="en">National multidimensional poverty, 2025</span></div>
  <div class="kpi"><b><span data-k="aseg25"></span>%</b><span class="es">Cobertura administrativa del SGSSS, dic. 2025</span><span class="en">SGSSS administrative coverage, Dec. 2025</span></div>
 </div>
-<div class="aviso"><span class="es"><b>Aviso.</b> Este repositorio no es una publicación oficial del DANE ni del Ministerio de Salud y Protección Social. Reproduce cifras oficiales publicadas y las organiza con fines académicos y pedagógicos. Ante cualquier diferencia, prevalecen las cifras y documentos de las entidades productoras. Las cifras monetarias se muestran por defecto en pesos colombianos corrientes (COP, pesos colombianos); el control superior permite convertirlas a COP constantes de 2025.</span><span class="en"><b>Notice.</b> This repository is not an official publication of DANE or the Ministry of Health. It reproduces published official figures and organises them for academic and teaching purposes. In case of discrepancy, the producers' figures and documents prevail. Monetary figures are shown by default in current Colombian pesos (COP); the control at the top converts them to constant 2025 COP.</span></div>
+<div class="aviso"><span class="es"><b>Aviso.</b> Este repositorio no es una publicación oficial del DANE ni del Ministerio de Salud y Protección Social. Reproduce cifras oficiales publicadas y las organiza con fines académicos y pedagógicos; el tablero de la sección 1 presenta cálculos propios a partir de los microdatos. Ante cualquier diferencia, prevalecen las cifras y documentos de las entidades productoras. Las cifras monetarias se muestran por defecto en pesos colombianos corrientes (COP, pesos colombianos); el control superior permite convertirlas a COP constantes de 2025.</span><span class="en"><b>Notice.</b> This repository is not an official publication of DANE or the Ministry of Health. It reproduces published official figures and organises them for academic and teaching purposes; the dashboard in section 1 presents own calculations from the microdata. In case of discrepancy, the producers' figures and documents prevail. Monetary figures are shown by default in current Colombian pesos (COP); the control at the top converts them to constant 2025 COP.</span></div>
 <h3><span class="es">Organización del documento</span><span class="en">Structure of the document</span></h3>
-<p class="es">El documento se organiza por fuente. La sección 1 explica qué son la GEIH y la ECV, cómo se relacionan, su alcance y cómo una muestra representa a la población. Las secciones 2 y 3 usan la GEIH; la 4, la ECV; y la 5 combina varias fuentes. Las secciones 2 a 5 presentan, para cada grupo de indicadores, el marco conceptual, el cálculo paso a paso (en listas desplegables) y los resultados. La sección 6 establece los criterios de comparación regional y temporal; la 7 enseña a acceder a los datos públicos; la 8 resume el calendario de publicación; la 9 discute limitaciones, y la 10 reconoce a las entidades productoras y el marco normativo que permite este trabajo.</p>
-<p class="en">The document is organised by source. Section 1 explains what the GEIH and ECV are, how they relate, their scope and how a sample represents the population. Sections 2 and 3 use the GEIH; section 4 the ECV; section 5 combines sources. Sections 2 to 5 present, for each group of indicators, the conceptual framework, a step-by-step calculation (in expandable lists) and the results. Section 6 sets the criteria for regional and temporal comparison; section 7 shows how to access the public data; section 8 summarises the release calendar; section 9 discusses limitations; and section 10 acknowledges the producing institutions and the legal framework that enables this work.</p>
+<p class="es">El documento abre con el tablero de microdatos (sección 1), que permite comparar cifras con y sin factores de expansión, y luego se organiza por fuente. La sección 2 explica qué son la GEIH y la ECV, cómo se relacionan, su alcance y cómo una muestra representa a la población. Las secciones 3 y 4 usan la GEIH; la 5, la ECV; y la 6 combina varias fuentes. Las secciones 3 a 6 presentan, para cada grupo de indicadores, el marco conceptual, el cálculo paso a paso (en listas desplegables) y los resultados. La sección 7 establece los criterios de comparación regional y temporal; la 8 enseña a acceder a los datos públicos; la 9 resume el calendario de publicación; la 10 discute limitaciones, y la 11 reconoce a las entidades productoras y el marco normativo que permite este trabajo.</p>
+<p class="en">The document opens with the microdata dashboard (section 1), which compares figures with and without expansion factors, and is then organised by source. Section 2 explains what the GEIH and ECV are, how they relate, their scope and how a sample represents the population. Sections 3 and 4 use the GEIH; section 5 the ECV; section 6 combines sources. Sections 3 to 6 present, for each group of indicators, the conceptual framework, a step-by-step calculation (in expandable lists) and the results. Section 7 sets the criteria for regional and temporal comparison; section 8 shows how to access the public data; section 9 summarises the release calendar; section 10 discusses limitations; and section 11 acknowledges the producing institutions and the legal framework that enables this work.</p>
+</section>
+
+<!-- ======================= TABLERO ======================= -->
+<section id="tablero" hidden>
+<h2><span class="es">1. Tablero: juegue con los factores de expansión (microdatos GEIH 2025–2026)</span><span class="en">1. Dashboard: play with the expansion factors (GEIH microdata 2025–2026)</span></h2>
+<p class="es">Una encuesta no cuenta a todo el país: cada persona entrevistada representa a un número distinto de personas. Elija un indicador y compare la cifra <b>ponderada</b>, que usa los factores de expansión y describe a la población, con la cifra <b>sin ponderar</b>, que solo describe a la muestra. Todas las cifras son <b>cálculos propios</b> a partir de los microdatos anonimizados del DANE.</p>
+<p class="en">A survey does not count the whole country: each respondent represents a different number of people. Pick an indicator and compare the <b>weighted</b> figure, which uses expansion factors and describes the population, with the <b>unweighted</b> figure, which only describes the sample. All figures are <b>own calculations</b> from DANE's anonymised microdata.</p>
+<div id="tb-error" class="aviso rojo" hidden><span class="es">No fue posible cargar las cifras del tablero. Recargue la página con Ctrl+F5.</span><span class="en">The dashboard figures could not be loaded. Reload the page with Ctrl+F5.</span></div>
+
+<div class="tb-filtros" role="group" aria-label="Filtros del tablero">
+ <label><span><span class="es">Tema</span><span class="en">Topic</span></span><select id="tb-tema"></select></label>
+ <label class="tb-ancho"><span><span class="es">Indicador</span><span class="en">Indicator</span></span><select id="tb-ind"></select></label>
+ <label><span><span class="es">Período</span><span class="en">Period</span></span><select id="tb-per"></select></label>
+ <label><span><span class="es">Nivel</span><span class="en">Level</span></span><select id="tb-niv"></select></label>
+ <label><span><span class="es">Departamento</span><span class="en">Department</span></span><select id="tb-dpto"></select></label>
+ <label><span><span class="es">Cruce 1</span><span class="en">Breakdown 1</span></span><select id="tb-c1"></select></label>
+ <label><span><span class="es">Cruce 2</span><span class="en">Breakdown 2</span></span><select id="tb-c2"></select></label>
+</div>
+<ul id="tb-avisos" class="tb-avisos" aria-live="polite"></ul>
+
+<p id="tb-sel" class="tb-sel"></p>
+<div class="kpis tb-kpis" aria-live="polite">
+ <div class="kpi"><b id="tb-k-n"></b><span class="es">Encuestas: </span><span class="en">Interviews: </span><span id="tb-k-den"></span></div>
+ <div class="kpi"><b id="tb-k-pob"></b><span class="es">Población representada: </span><span class="en">Population represented: </span><span id="tb-k-den2"></span></div>
+ <div class="kpi"><b id="tb-k-v"></b><span class="es">Cifra ponderada, con factores de expansión</span><span class="en">Weighted figure, with expansion factors</span></div>
+ <div class="kpi tb-kpi-sp"><b id="tb-k-vsp"></b><span class="es">Cifra sin ponderar, contando cada encuesta como una persona</span><span class="en">Unweighted figure, counting each interview as one person</span></div>
+</div>
+<p id="tb-frase" class="tb-frase"></p>
+<p class="fuente"><span class="es">Las tarjetas muestran el total de la selección; los cruces se ven en el gráfico y en la tabla.</span><span class="en">The cards show the total for the selection; breakdowns appear in the chart and the table.</span></p>
+
+<div class="panel">
+ <h3 class="tb-h" id="tb-graf-tit"></h3>
+ <div class="fil" id="tb-cifra-caja" hidden><label><span class="es">Cifra del gráfico: </span><span class="en">Figure shown: </span><select id="tb-cifra"></select></label></div>
+ <div class="graf" id="tb-graf-caja"><canvas id="tb-graf" role="img" aria-label="Gráfico de barras de la selección; los mismos valores están en la tabla"></canvas></div>
+ <p class="fuente"><span class="es">Una letra en lugar de la barra indica una cifra reservada. </span><span class="en">A letter instead of a bar marks a withheld figure. </span><span class="cita-dane">Cálculo propio. Fuente: Departamento Administrativo Nacional de Estadística: www.dane.gov.co</span></p>
+</div>
+
+<div class="panel">
+ <h3 class="tb-h" id="tb-mapa-tit"></h3>
+ <p id="tb-mapa-msg" class="tb-msg" hidden></p>
+ <div id="tb-mapa-caja" class="dos">
+  <div class="mapa"><div id="tb-mapa"></div><div class="tip" hidden></div></div>
+  <div class="rks" id="tb-rk"></div>
+ </div>
+ <p class="fuente" id="tb-mapa-nota"><span class="es">Haga clic en un departamento para seleccionarlo. Son 23 departamentos con <code>FEX_DPTO</code> y Bogotá con <code>FEX_C18/12</code>; Amazonía-Orinoquía y San Andrés no tienen factor departamental. Las cifras por departamento solo son representativas con el año completo.</span><span class="en">Click a department to select it. These are 23 departments with <code>FEX_DPTO</code> and Bogotá with <code>FEX_C18/12</code>; Amazon-Orinoquía and San Andrés have no departmental factor. Departmental figures are representative only for the full year.</span></p>
+</div>
+
+<div class="panel">
+ <div class="tb-cab"><h3 class="tb-h"><span class="es">Tabla de la selección</span><span class="en">Table of the selection</span></h3><button type="button" id="tb-csv" class="tb-btn"><span class="es">Descargar CSV</span><span class="en">Download CSV</span></button></div>
+ <div class="tabla"><table id="tb-tabla"><thead></thead><tbody></tbody></table></div>
+ <p class="tb-ley"><span class="es"><b>P</b> = precisión insuficiente (menos de 300 encuestas en el denominador).<br><b>C</b> = reservada por confidencialidad (Ley 79 de 1993).</span><span class="en"><b>P</b> = insufficient precision (fewer than 300 interviews in the denominator).<br><b>C</b> = withheld for confidentiality (Law 79 of 1993).</span></p>
+ <p class="fuente"><span class="es">El tablero nunca calcula una cifra reservada a partir de otras. El CSV contiene resúmenes numéricos, no microdatos.</span><span class="en">The dashboard never computes a withheld figure from others. The CSV contains numerical summaries, not microdata.</span></p>
+</div>
+
+<h3><span class="es">Nota metodológica</span><span class="en">Methodological note</span></h3>
+<details><summary><span class="es">Factores de expansión usados</span><span class="en">Expansion factors used</span></summary><div>
+<ul class="es">
+ <li><b>Nacional, cabeceras y rural:</b> <code>FEX_C18</code> dividido por el número de meses agregados: 12 para 2025 y 8 para enero–agosto. Las tasas no cambian con esa división; los niveles de población sí.</li>
+ <li><b>Departamentos 2025:</b> <code>FEX_DPTO</code> del archivo <code>TOTAL_25</code> (catálogo 789). Es anual: no se divide por 12. Se comprobó que coincide registro por registro con <code>fex_dpto</code> de la base de pobreza (catálogo 908).</li>
+ <li><b>Bogotá 2025:</b> no aparece en <code>TOTAL_25</code>; se usa <code>FEX_C18/12</code>.</li>
+</ul>
+<ul class="en">
+ <li><b>National, urban and rural:</b> <code>FEX_C18</code> divided by the number of pooled months: 12 for 2025 and 8 for January–August. Rates do not change with that division; population levels do.</li>
+ <li><b>Departments 2025:</b> <code>FEX_DPTO</code> from the <code>TOTAL_25</code> file (catalogue 789). It is annual, so it is not divided by 12. It was checked to match <code>fex_dpto</code> in the poverty base (catalogue 908) record by record.</li>
+ <li><b>Bogotá 2025:</b> it is not in <code>TOTAL_25</code>; <code>FEX_C18/12</code> is used.</li>
+</ul>
+<p><span class="es">Vea la <a href="#fuentes">sección 2.7</a>, sobre los tres factores de expansión.</span><span class="en">See <a href="#fuentes">section 2.7</a> on the three expansion factors.</span></p>
+</div></details>
+<details><summary><span class="es">Uniones entre módulos</span><span class="en">Merging the modules</span></summary><div>
+<p class="es">Cada mes se parte del módulo de características generales y se le unen los de fuerza de trabajo, ocupados y no ocupados con las llaves de persona <code>DIRECTORIO</code>, <code>SECUENCIA_P</code>, <code>ORDEN</code> y <code>MES</code>. El factor departamental se une con las mismas llaves. Las llaves se convierten primero a un mismo tipo, porque en agosto de 2026 varias llegan como texto; en ese mes, además, lo no aplicable viene como 0 en vez de vacío. El proceso se detiene si un cruce queda incompleto. En <code>TOTAL_25</code>, los registros rurales de Bogotá figuran en Cundinamarca: se conserva esa asignación, que reproduce la cifra oficial, y por eso Bogotá aparece solo como cabecera.</p>
+<p class="en">Each month starts from the general characteristics module, and the labour force, employed and not-employed modules are merged using the person keys <code>DIRECTORIO</code>, <code>SECUENCIA_P</code>, <code>ORDEN</code> and <code>MES</code>. The departmental factor is merged with the same keys. Keys are first converted to one type, because several arrive as text in August 2026; that month, non-applicable answers also come as 0 instead of blank. The process stops if a merge is incomplete. In <code>TOTAL_25</code>, rural Bogotá records are assigned to Cundinamarca: that assignment is kept because it reproduces the official figure, so Bogotá appears as urban only.</p>
+</div></details>
+<details><summary><span class="es">Definición de cada indicador y sus variables</span><span class="en">Definition of each indicator and its variables</span></summary><div>
+<div class="tabla"><table>
+<tr><th><span class="es">Indicador</span><span class="en">Indicator</span></th><th><span class="es">Cálculo y variables</span><span class="en">Calculation and variables</span></th></tr>
+<tr><td>TGP</td><td><span class="es">Fuerza de trabajo / población en edad de trabajar: <code>FT</code> / <code>PET</code>.</span><span class="en">Labour force / working-age population: <code>FT</code> / <code>PET</code>.</span></td></tr>
+<tr><td>TO</td><td><span class="es">Ocupados / población en edad de trabajar: <code>OCI</code> / <code>PET</code>.</span><span class="en">Employed / working-age population: <code>OCI</code> / <code>PET</code>.</span></td></tr>
+<tr><td>TD</td><td><span class="es">Desocupados / fuerza de trabajo: <code>DSI</code> / <code>FT</code>.</span><span class="en">Unemployed / labour force: <code>DSI</code> / <code>FT</code>.</span></td></tr>
+<tr><td><span class="es">Informalidad</span><span class="en">Informality</span></td><td><span class="es">Ocupados con <code>EI = 0</code> / <code>OCI</code>. <code>EI</code> se construye con el código oficial del DANE (anexo de empleo informal y seguridad social, hojas Código_STATA y Código_SAS), que usa <code>P6430</code>, <code>P3045S1</code>, <code>P3046</code>, <code>P3069</code>, <code>P6765</code>, <code>P3065</code>, <code>P3066</code>, <code>P3067</code>, <code>P3067S1</code>, <code>P3067S2</code>, <code>P6775</code>, <code>P3068</code>, <code>OFICIO_C8</code>, <code>RAMA2D_R4</code>, <code>P6100</code>, <code>P6110</code>, <code>P6450</code>, <code>P6920</code>, <code>P6930</code> y <code>P6940</code>.</span><span class="en">Employed with <code>EI = 0</code> / <code>OCI</code>. <code>EI</code> is built with DANE's official code (informal employment and social security annex, sheets Código_STATA and Código_SAS), using <code>P6430</code>, <code>P3045S1</code>, <code>P3046</code>, <code>P3069</code>, <code>P6765</code>, <code>P3065</code>, <code>P3066</code>, <code>P3067</code>, <code>P3067S1</code>, <code>P3067S2</code>, <code>P6775</code>, <code>P3068</code>, <code>OFICIO_C8</code>, <code>RAMA2D_R4</code>, <code>P6100</code>, <code>P6110</code>, <code>P6450</code>, <code>P6920</code>, <code>P6930</code> and <code>P6940</code>.</span></td></tr>
+<tr><td><span class="es">Cotizan a pensión</span><span class="en">Pension contributors</span></td><td><span class="es">Ocupados con <code>P6920 = 1</code> / <code>OCI</code>.</span><span class="en">Employed with <code>P6920 = 1</code> / <code>OCI</code>.</span></td></tr>
+<tr><td><span class="es">Ocupados afiliados a salud</span><span class="en">Employed enrolled in health</span></td><td><span class="es">Ocupados con <code>P6090 = 1</code> / <code>OCI</code>.</span><span class="en">Employed with <code>P6090 = 1</code> / <code>OCI</code>.</span></td></tr>
+<tr><td><span class="es">Ni estudian ni trabajan</span><span class="en">Neither studying nor working</span></td><td><span class="es">Personas de 15 a 28 años (<code>P6040</code>) no ocupadas (<code>OCI</code>) que no asisten a una institución educativa (<code>P6170 = 2</code>) / personas de 15 a 28 años. Definición de los autores: los anexos usados no traen cifra oficial de contraste.</span><span class="en">People aged 15 to 28 (<code>P6040</code>) not employed (<code>OCI</code>) and not attending an educational institution (<code>P6170 = 2</code>) / people aged 15 to 28. The authors' definition: the annexes used have no official figure to compare with.</span></td></tr>
+<tr><td><span class="es">Salud, toda la población</span><span class="en">Health, whole population</span></td><td><span class="es">Afiliados: <code>P6090 = 1</code>. Régimen: <code>P6100</code> (1 contributivo, 2 especial, 3 subsidiado, 9 no sabe). Todos sobre la población total del grupo.</span><span class="en">Enrolled: <code>P6090 = 1</code>. Scheme: <code>P6100</code> (1 contributory, 2 special, 3 subsidised, 9 does not know). All over the group's total population.</span></td></tr>
+<tr><td><span class="es">Cruces</span><span class="en">Breakdowns</span></td><td><span class="es">Sexo al nacer: <code>P3271</code>. Edad: <code>P6040</code>. Educación: <code>P3042</code>. Zona: <code>CLASE</code>.</span><span class="en">Sex at birth: <code>P3271</code>. Age: <code>P6040</code>. Education: <code>P3042</code>. Area: <code>CLASE</code>.</span></td></tr>
+</table></div>
+</div></details>
+<details><summary><span class="es">Reglas de supresión</span><span class="en">Suppression rules</span></summary><div>
+<ul class="es">
+ <li><b>P = precisión insuficiente (menos de 300 encuestas en el denominador).</b> Es un criterio propio de prudencia, no una regla del DANE.</li>
+ <li><b>C = reservada por confidencialidad (Ley 79 de 1993).</b> Todo conteo publicado o que se pueda obtener por resta debe ser 0 o al menos 10; de lo contrario, la cifra se reserva.</li>
+ <li><b>Cifras que se derivan entre sí.</b> TGP, TO y TD se reservan juntas, igual que los regímenes de salud.</li>
+ <li><b>Supresión secundaria.</b> En cada grupo que suma a un total, incluido nacional = cabeceras + rural, no puede quedar una sola cifra reservada ni un residuo de 1 a 9 personas. También se reserva lo necesario para que 2025 menos enero–agosto de 2025 no deje esos residuos.</li>
+ <li>Las cifras reservadas no llevan ningún número en el archivo publicado, y el tablero nunca las calcula a partir de otras.</li>
+</ul>
+<ul class="en">
+ <li><b>P = insufficient precision (fewer than 300 interviews in the denominator).</b> This is the authors' prudential criterion, not a DANE rule.</li>
+ <li><b>C = withheld for confidentiality (Law 79 of 1993).</b> Every published count, or count obtainable by subtraction, must be 0 or at least 10; otherwise the figure is withheld.</li>
+ <li><b>Figures derived from each other.</b> TGP, TO and TD are withheld together, as are the health schemes.</li>
+ <li><b>Secondary suppression.</b> In every group that adds up to a total, including national = urban + rural, there can be neither a single withheld figure nor a residual of 1 to 9 people. Enough is also withheld so that 2025 minus January–August 2025 leaves no such residuals.</li>
+ <li>Withheld figures carry no numbers in the published file, and the dashboard never computes them from others.</li>
+</ul>
+</div></details>
+<details><summary><span class="es">Agrupaciones</span><span class="en">Groupings</span></summary><div>
+<ul class="es">
+ <li><b>«No sabe» en salud.</b> Los afiliados sin dato de régimen se suman al contributivo. Quienes no informan su afiliación quedan fuera de «afiliados». Son menos del 0,1 % y publicarlos aparte los haría identificables.</li>
+ <li><b>Régimen especial en departamentos.</b> Se publica junto con el contributivo; por separado solo en los niveles nacional, de cabeceras y rural.</li>
+ <li><b>5 registros sin nivel educativo.</b> En mercado laboral, los 5 registros de población en edad de trabajar sin dato de <code>P3042</code> en los 20 meses se agrupan con «Ninguno». Publicarlos aparte los haría identificables por resta contra el total. No es una imputación. En salud, «Sin dato» es una categoría propia, compuesta sobre todo por menores de 3 años.</li>
+ <li><b>Educación (<code>P3042</code>).</b> Ninguno: 1 y 2 (ninguno, preescolar). Primaria: 3. Secundaria: 4. Media: 5, 6 y 7. Superior: 8 a 13.</li>
+ <li><b>Edad en departamentos.</b> 15–28, 29–44, 45–64 y 65 o más; en salud se agrega 0–14. Educación no se cruza con edad.</li>
+</ul>
+<ul class="en">
+ <li><b>"Does not know" in health.</b> Enrollees with no scheme reported are added to the contributory scheme. Those not reporting enrolment fall outside "enrolled". They are under 0.1% and publishing them separately would make them identifiable.</li>
+ <li><b>Special scheme in departments.</b> Published together with the contributory scheme; separately only at the national, urban and rural levels.</li>
+ <li><b>5 records with no education level.</b> In the labour market, the 5 working-age records with no <code>P3042</code> value across the 20 months are grouped with "None". Publishing them separately would make them identifiable by subtraction from the total. This is not imputation. In health, "Not reported" is its own category, mostly children under 3.</li>
+ <li><b>Education (<code>P3042</code>).</b> None: 1 and 2 (none, pre-school). Primary: 3. Lower secondary: 4. Upper secondary: 5, 6 and 7. Tertiary: 8 to 13.</li>
+ <li><b>Age in departments.</b> 15–28, 29–44, 45–64 and 65 or over; health adds 0–14. Education is not crossed with age.</li>
+</ul>
+</div></details>
+<details><summary><span class="es">Tabla de validación</span><span class="en">Validation table</span></summary><div>
+<p class="es">Se compara cada cifra con la oficial de los anexos del DANE. Se considera réplica una diferencia de hasta 0,1 puntos porcentuales en tasas y de 0,5 miles de personas en niveles. El grupo «Tablas» compara la cifra publicada en este tablero; los demás, el cálculo desde los microdatos. Archivo generado el <span id="tb-gen"></span>.</p>
+<p class="en">Each figure is compared with the official one in DANE's annexes. A gap of up to 0.1 percentage points in rates and 0.5 thousand people in levels counts as a replication. The "Tables" group compares the figure published in this dashboard; the others, the calculation from microdata. File generated on <span id="tb-gen-en"></span>.</p>
+<div class="tabla"><table id="tb-val"><thead><tr><th><span class="es">Cifra</span><span class="en">Figure</span></th><th><span class="es">Comparaciones</span><span class="en">Comparisons</span></th><th><span class="es">Diferencia máxima</span><span class="en">Maximum gap</span></th><th><span class="es">¿Replica?</span><span class="en">Replicates?</span></th></tr></thead><tbody></tbody></table></div>
+<h4><span class="es">TD departamental 2025 (%)</span><span class="en">Departmental TD 2025 (%)</span></h4>
+<div class="tabla"><table id="tb-val-dep"><thead><tr><th><span class="es">Departamento</span><span class="en">Department</span></th><th><span class="es">Tablero</span><span class="en">Dashboard</span></th><th><span class="es">Anexo oficial</span><span class="en">Official annex</span></th><th><span class="es">Diferencia</span><span class="en">Gap</span></th></tr></thead><tbody></tbody></table></div>
+</div></details>
+<details><summary><span class="es">Limitaciones</span><span class="en">Limitations</span></summary><div>
+<ul class="es">
+ <li><b>Sin variables de diseño.</b> Los archivos públicos no traen estrato ni conglomerado, de modo que no se calculan errores de muestreo ni coeficientes de variación. El umbral de 300 encuestas es una señal de prudencia, no una medida de error.</li>
+ <li><b>Representatividad.</b> Por año: departamentos y 23 ciudades. Por mes o trimestre: nacional, cabeceras, centros poblados y rural disperso, y 13 ciudades. Por eso enero–agosto no se desagrega por departamento. Las desagregaciones finas por sexo, edad o educación tienen menor precisión aunque superen el umbral.</li>
+ <li><b>Sismo de agosto de 2026.</b> El DANE ajustó los factores de expansión de ese mes por el sismo del 10 de agosto, lo que afecta a los promedios de enero–agosto de 2026.</li>
+ <li><b>Cobertura departamental.</b> Amazonía-Orinoquía y San Andrés están en el total nacional, pero no tienen factor departamental.</li>
+ <li><b>Comparación entre tablas.</b> Las cifras nacionales y departamentales usan factores distintos y no se suman entre sí.</li>
+ <li><b>Cifras sin contraste oficial en esta forma.</b> Informalidad, pensión y ocupados afiliados se validaron en trimestre móvil nacional, no por año ni por departamento. «Ni estudian ni trabajan» y salud de toda la población no tienen contraste.</li>
+ <li><b>Cifra P y otras publicadas.</b> Una TD marcada P puede coincidir con TGP y TO publicadas. Esas cifras pasaron el control de confidencialidad, pero la TD que se deduzca de ellas es imprecisa.</li>
+ <li>Este tablero no es una publicación oficial; es descriptivo y no establece relaciones causales. No incluye ingresos ni pobreza.</li>
+</ul>
+<ul class="en">
+ <li><b>No design variables.</b> The public files carry no stratum or cluster, so sampling errors and coefficients of variation are not computed. The 300-interview threshold is a prudential signal, not a measure of error.</li>
+ <li><b>Representativeness.</b> By year: departments and 23 cities. By month or quarter: national, urban, rural, and 13 cities. Hence January–August is not broken down by department. Fine breakdowns by sex, age or education are less precise even above the threshold.</li>
+ <li><b>August 2026 earthquake.</b> DANE adjusted that month's expansion factors for the 10 August earthquake, which affects the January–August 2026 averages.</li>
+ <li><b>Departmental coverage.</b> Amazon-Orinoquía and San Andrés are in the national total but have no departmental factor.</li>
+ <li><b>Comparing tables.</b> National and departmental figures use different factors and do not add up to each other.</li>
+ <li><b>Figures with no official comparison in this form.</b> Informality, pensions and employed enrolled in health were validated by national moving quarter, not by year or department. "Neither studying nor working" and whole-population health have no comparison.</li>
+ <li><b>P figures and other published figures.</b> A TD marked P may sit beside published TGP and TO. Those figures passed the confidentiality check, but a TD deduced from them is imprecise.</li>
+ <li>This dashboard is not an official publication; it is descriptive and makes no causal claims. It does not include income or poverty.</li>
+</ul>
+</div></details>
+<p class="fuente">Fuente: Departamento Administrativo Nacional de Estadística: www.dane.gov.co</p>
 </section>
 
 <!-- ======================= FUENTES ======================= -->
 <section id="fuentes" hidden>
-<h2><span class="es">1. Las fuentes: la Gran Encuesta Integrada de Hogares (GEIH) y la Encuesta Nacional de Calidad de Vida (ECV)</span><span class="en">1. The sources: the Integrated Household Survey (GEIH) and the National Quality of Life Survey (ECV)</span></h2>
-<p class="es">Los indicadores de este repositorio provienen de dos encuestas a hogares del DANE que se complementan. La GEIH es la fuente de las secciones 2 (mercado laboral) y 3 (pobreza monetaria y desigualdad); la ECV es la fuente de la sección 4 (pobreza multidimensional); la sección 5 (aseguramiento en salud) combina ambas con el registro administrativo del Ministerio de Salud y Protección Social.</p>
-<p class="en">The indicators in this repository come from two complementary DANE household surveys. The GEIH feeds sections 2 (labour market) and 3 (monetary poverty and inequality); the ECV feeds section 4 (multidimensional poverty); section 5 (health insurance) combines both with the Ministry of Health's administrative register.</p>
-<h3><span class="es">1.1 Relación entre las dos encuestas</span><span class="en">1.1 How the two surveys relate</span></h3>
+<h2><span class="es">2. Las fuentes: la Gran Encuesta Integrada de Hogares (GEIH) y la Encuesta Nacional de Calidad de Vida (ECV)</span><span class="en">2. The sources: the Integrated Household Survey (GEIH) and the National Quality of Life Survey (ECV)</span></h2>
+<p class="es">Los indicadores de este repositorio provienen de dos encuestas a hogares del DANE que se complementan. La GEIH es la fuente de las secciones 3 (mercado laboral) y 4 (pobreza monetaria y desigualdad); la ECV es la fuente de la sección 5 (pobreza multidimensional); la sección 6 (aseguramiento en salud) combina ambas con el registro administrativo del Ministerio de Salud y Protección Social.</p>
+<p class="en">The indicators in this repository come from two complementary DANE household surveys. The GEIH feeds sections 3 (labour market) and 4 (monetary poverty and inequality); the ECV feeds section 5 (multidimensional poverty); section 6 (health insurance) combines both with the Ministry of Health's administrative register.</p>
+<h3><span class="es">2.1 Relación entre las dos encuestas</span><span class="en">2.1 How the two surveys relate</span></h3>
 <figure class="diagrama">
 <svg viewBox="0 0 900 600" role="img" aria-labelledby="dg-t">
 <title id="dg-t">GEIH y ECV: productor común, rasgos compartidos, productos y límites</title>
@@ -246,11 +425,11 @@ footer{border-top:1px solid var(--borde);color:var(--sub);font-size:13px;padding
 <line x1="200" y1="210" x2="330" y2="240" class="dg-ln dg-dash"/><line x1="700" y1="210" x2="570" y2="240" class="dg-ln dg-dash"/>
 <line x1="200" y1="210" x2="200" y2="372" class="dg-ln" marker-end="url(#fl)"/><line x1="700" y1="210" x2="700" y2="372" class="dg-ln" marker-end="url(#fl)"/>
 <rect x="40" y="374" width="320" height="86" rx="6" class="dg-prod"/>
-<g class="es"><text x="200" y="396" class="dg-tb2">Produce oficialmente</text><text x="200" y="416" class="dg-ts">Mercado laboral: TGP, TO, TD, informalidad</text><text x="200" y="434" class="dg-ts">Ingresos → pobreza monetaria y Gini</text><text x="200" y="450" class="dg-ts">(secciones 2 y 3)</text></g>
-<g class="en"><text x="200" y="396" class="dg-tb2">Official outputs</text><text x="200" y="416" class="dg-ts">Labour market: TGP, TO, TD, informality</text><text x="200" y="434" class="dg-ts">Income → monetary poverty and Gini</text><text x="200" y="450" class="dg-ts">(sections 2 and 3)</text></g>
+<g class="es"><text x="200" y="396" class="dg-tb2">Produce oficialmente</text><text x="200" y="416" class="dg-ts">Mercado laboral: TGP, TO, TD, informalidad</text><text x="200" y="434" class="dg-ts">Ingresos → pobreza monetaria y Gini</text><text x="200" y="450" class="dg-ts">(secciones 3 y 4)</text></g>
+<g class="en"><text x="200" y="396" class="dg-tb2">Official outputs</text><text x="200" y="416" class="dg-ts">Labour market: TGP, TO, TD, informality</text><text x="200" y="434" class="dg-ts">Income → monetary poverty and Gini</text><text x="200" y="450" class="dg-ts">(sections 3 and 4)</text></g>
 <rect x="540" y="374" width="320" height="86" rx="6" class="dg-prod"/>
-<g class="es"><text x="700" y="396" class="dg-tb2">Produce oficialmente</text><text x="700" y="416" class="dg-ts">Condiciones de vida de los hogares</text><text x="700" y="434" class="dg-ts">Índice de Pobreza Multidimensional (IPM)</text><text x="700" y="450" class="dg-ts">(sección 4)</text></g>
-<g class="en"><text x="700" y="396" class="dg-tb2">Official outputs</text><text x="700" y="416" class="dg-ts">Household living conditions</text><text x="700" y="434" class="dg-ts">Multidimensional Poverty Index (MPI)</text><text x="700" y="450" class="dg-ts">(section 4)</text></g>
+<g class="es"><text x="700" y="396" class="dg-tb2">Produce oficialmente</text><text x="700" y="416" class="dg-ts">Condiciones de vida de los hogares</text><text x="700" y="434" class="dg-ts">Índice de Pobreza Multidimensional (IPM)</text><text x="700" y="450" class="dg-ts">(sección 5)</text></g>
+<g class="en"><text x="700" y="396" class="dg-tb2">Official outputs</text><text x="700" y="416" class="dg-ts">Household living conditions</text><text x="700" y="434" class="dg-ts">Multidimensional Poverty Index (MPI)</text><text x="700" y="450" class="dg-ts">(section 5)</text></g>
 <line x1="360" y1="430" x2="390" y2="470" class="dg-ln"/><line x1="540" y1="430" x2="510" y2="470" class="dg-ln"/>
 <rect x="250" y="470" width="400" height="44" rx="6" class="dg-osc"/>
 <g class="es"><text x="450" y="490" class="dg-t dg-blanco">Medidas complementarias de pobreza</text><text x="450" y="507" class="dg-ts dg-blanco">CONPES 150 de 2012: ingreso + privaciones</text></g>
@@ -261,7 +440,7 @@ footer{border-top:1px solid var(--borde);color:var(--sub);font-size:13px;padding
 </svg>
 <figcaption><span class="es">Figura 1. Esquema elaborado por los autores con base en las fichas metodológicas y los catálogos de microdatos del DANE (GEIH 2025, catálogo 853; ECV 2025, catálogo 905).</span><span class="en">Figure 1. Authors' diagram based on DANE methodological sheets and microdata catalogues (GEIH 2025, catalogue 853; ECV 2025, catalogue 905).</span></figcaption>
 </figure>
-<h3><span class="es">1.2 Esquema de alcance de cada encuesta</span><span class="en">1.2 Scope of each survey</span></h3>
+<h3><span class="es">2.2 Esquema de alcance de cada encuesta</span><span class="en">2.2 Scope of each survey</span></h3>
 <div class="tabla"><table>
 <tr><th><span class="es">Aspecto</span><span class="en">Aspect</span></th><th>GEIH</th><th>ECV</th></tr>
 <tr><td><span class="es">Propósito</span><span class="en">Purpose</span></td><td><span class="es">Mercado laboral, ingresos y pobreza monetaria, y características sociodemográficas de la población</span><span class="en">Labour market, income and monetary poverty, socio-demographic characteristics</span></td><td><span class="es">Condiciones de vida de los hogares: vivienda, servicios, educación, salud, cuidado de la primera infancia, TIC, bienes</span><span class="en">Household living conditions: housing, utilities, education, health, early-childhood care, ICT, assets</span></td></tr>
@@ -272,7 +451,7 @@ footer{border-top:1px solid var(--borde);color:var(--sub);font-size:13px;padding
 <tr><td><span class="es">Lo que no produce</span><span class="en">What it does not produce</span></td><td><span class="es">El IPM oficial</span><span class="en">The official MPI</span></td><td><span class="es">Cifras oficiales mensuales de mercado laboral ni de pobreza monetaria</span><span class="en">Official monthly labour-market or monetary poverty figures</span></td></tr>
 <tr><td><span class="es">Microdatos (catálogo ANDA)</span><span class="en">Microdata (ANDA catalogue)</span></td><td><a href="https://microdatos.dane.gov.co/index.php/catalog/853" target="_blank" rel="noopener">GEIH 2025 (853)</a> · <a href="https://microdatos.dane.gov.co/index.php/catalog/908" target="_blank" rel="noopener"><span class="es">Pobreza monetaria 2025 (908)</span><span class="en">Monetary poverty 2025 (908)</span></a></td><td><a href="https://microdatos.dane.gov.co/index.php/catalog/905" target="_blank" rel="noopener">ECV 2025 (905)</a></td></tr>
 </table></div>
-<h3><span class="es">1.3 Diseño muestral de la GEIH</span><span class="en">1.3 GEIH sample design</span></h3>
+<h3><span class="es">2.3 Diseño muestral de la GEIH</span><span class="en">2.3 GEIH sample design</span></h3>
 <div class="tabla"><table>
 <tr><th><span class="es">Característica</span><span class="en">Feature</span></th><th><span class="es">Descripción (ficha metodológica del DANE)</span><span class="en">Description (DANE methodological sheet)</span></th></tr>
 <tr><td><span class="es">Tipo de operación</span><span class="en">Type of operation</span></td><td><span class="es">Encuesta por muestreo.</span><span class="en">Sample survey.</span></td></tr>
@@ -282,10 +461,10 @@ footer{border-top:1px solid var(--borde);color:var(--sub);font-size:13px;padding
 <tr><td><span class="es">Cobertura geográfica</span><span class="en">Geographic coverage</span></td><td><span class="es">Total nacional, desagregado en cabeceras (32 ciudades y áreas metropolitanas y otras cabeceras) y centros poblados y rural disperso. Se excluyen, en los departamentos de la Amazonía y la Orinoquía, las cabeceras que no son capitales y la zona rural, así como Providencia y la zona rural de San Andrés<sup><a href="#n1-3">3</a></sup>.</span><span class="en">National total, broken down into urban centres (32 cities and metropolitan areas plus other urban centres) and rural areas. In the Amazon and Orinoquía departments, non-capital urban centres and rural areas are excluded, as are Providencia and rural San Andrés<sup><a href="#n1-3">3</a></sup>.</span></td></tr>
 <tr><td><span class="es">Factor de expansión</span><span class="en">Expansion factor</span></td><td><span class="es">Cada persona encuestada representa a un número de personas de la población (factor de expansión). Las estimaciones se expanden con proyecciones de población basadas en el CNPV 2018; las series 2001–2020 fueron retroproyectadas por el DANE con esas proyecciones.</span><span class="en">Each respondent represents a number of people in the population (expansion factor). Estimates are expanded with population projections based on the 2018 census; the 2001–2020 series were back-projected by DANE accordingly.</span></td></tr>
 </table></div>
-<h3><span class="es">1.4 Representatividad y precisión de las estimaciones de la GEIH</span><span class="en">1.4 GEIH representativeness and precision</span></h3>
+<h3><span class="es">2.4 Representatividad y precisión de las estimaciones de la GEIH</span><span class="en">2.4 GEIH representativeness and precision</span></h3>
 <p class="es">Una encuesta por muestreo no observa a toda la población: estima sus características a partir de una muestra. Por ello toda cifra tiene un error de muestreo. El DANE advierte que toda variable cuya proporción respecto a la fuerza de trabajo sea menor al 10% tiene un error de muestreo superior al 5%, que es el nivel de calidad admisible para la entidad<sup><a href="#n1-4">4</a></sup>. En la práctica, cuanto más fina es la desagregación (un departamento, un sexo, una zona rural), menor es el número de encuestas que la sustentan y mayor la incertidumbre. Los anexos del DANE incluyen hojas de errores relativos e intervalos de confianza que el lector puede consultar.</p>
 <p class="en">A sample survey does not observe the whole population; it estimates its characteristics from a sample, so every figure carries sampling error. DANE notes that any variable whose share of the labour force is below 10% has a sampling error above 5%, its admissible quality threshold<sup><a href="#n1-4">4</a></sup>. The finer the breakdown (a department, a sex, a rural area), the fewer the interviews behind it and the greater the uncertainty. DANE's annexes include relative error and confidence-interval sheets.</p>
-<h3><span class="es">1.5 Operativo de recolección y procesamiento de la GEIH</span><span class="en">1.5 GEIH fieldwork and processing</span></h3>
+<h3><span class="es">2.5 Operativo de recolección y procesamiento de la GEIH</span><span class="en">2.5 GEIH fieldwork and processing</span></h3>
 <ol class="pasos es">
  <li><b>Marco y selección de la muestra.</b> A partir del marco censal, el DANE selecciona áreas, segmentos y viviendas en varias etapas, con estratificación que garantiza presencia de todos los dominios de estudio.</li>
  <li><b>Recolección.</b> Personal de campo del DANE visita las viviendas seleccionadas y aplica el cuestionario a los hogares. Entre marzo y julio de 2020, por la pandemia de COVID-19, el operativo se modificó y no fue posible obtener información de la población subocupada<sup><a href="#n1-5">5</a></sup>.</li>
@@ -301,7 +480,7 @@ footer{border-top:1px solid var(--borde);color:var(--sub);font-size:13px;padding
  <li><b>Dissemination.</b> DANE publishes monthly bulletins, presentations and Excel annexes and, in its microdata catalogue, anonymised public-use files.</li>
 </ol>
 
-<h3><span class="es">1.6 Los factores de expansión: cómo una muestra representa a la población</span><span class="en">1.6 Expansion factors: how a sample represents the population</span></h3>
+<h3><span class="es">2.6 Los factores de expansión: cómo una muestra representa a la población</span><span class="en">2.6 Expansion factors: how a sample represents the population</span></h3>
 <p class="es">Ninguna de las dos encuestas entrevista a toda la población. Cada persona encuestada recibe un <b>factor de expansión</b> (en la GEIH 2025, la variable <code>FEX_C18</code>), que indica a cuántas personas de la población representa. El factor resulta de la probabilidad de selección en cada etapa del muestreo y de ajustes posteriores por no respuesta y por calibración con las proyecciones de población del CNPV 2018.</p>
 <p class="en">Neither survey interviews the whole population. Each respondent carries an <b>expansion factor</b> (in GEIH 2025, the variable <code>FEX_C18</code>) stating how many people in the population they represent. It derives from selection probabilities at each sampling stage and later adjustments for non-response and calibration to CNPV 2018 population projections.</p>
 <details open><summary><span class="es">Ejemplo numérico paso a paso</span><span class="en">Step-by-step numerical example</span></summary><div>
@@ -318,7 +497,7 @@ footer{border-top:1px solid var(--borde);color:var(--sub);font-size:13px;padding
 <p class="es">Los factores de cada mes de la GEIH suman la población total de ese mes (por eso los anexos mensuales reportan cerca de 52 millones de personas cada mes). Si se unen doce meses sin ajustar el factor, la suma equivale a doce veces la población. Para obtener niveles anuales, el factor debe ajustarse al número de meses agregados (por ejemplo, dividiéndolo por 12), tal como se indique en la documentación del estudio descargado. Las tasas (cocientes) no cambian con ese ajuste, pero los niveles en personas sí.</p>
 <p class="en">Each GEIH month's factors add up to that month's total population (hence monthly annexes report about 52 million people each month). Pooling twelve months without adjustment adds up to twelve times the population. For annual levels, adjust the factor to the number of pooled months (e.g., divide by 12) as the study documentation indicates. Rates (ratios) are unaffected; levels in persons are.</p>
 </div></details>
-<h3><span class="es">1.7 Tres factores de expansión distintos: cuál usar y por qué</span><span class="en">1.7 Three different expansion factors: which to use and why</span></h3>
+<h3><span class="es">2.7 Tres factores de expansión distintos: cuál usar y por qué</span><span class="en">2.7 Three different expansion factors: which to use and why</span></h3>
 <p class="es">El DANE publica más de un factor de expansión porque cada uno está calibrado para reproducir una población distinta. La muestra mensual de la GEIH está diseñada para estimar el total nacional, las cabeceras, la zona rural y las 13 ciudades principales; los departamentos solo alcanzan precisión suficiente al acumular los doce meses. Por eso existe un factor departamental anual, que vuelve a ajustar los pesos a la población de cada departamento. Usar el factor equivocado no produce un error de programación visible, pero sí cifras distintas a las oficiales.</p>
 <p class="en">DANE publishes more than one expansion factor because each is calibrated to reproduce a different population. The monthly GEIH sample is designed to estimate the national total, urban centres, rural areas and the 13 main cities; departments only reach enough precision when the twelve months are pooled. Hence an annual departmental factor that re-weights to each department's population. Using the wrong factor raises no visible error but yields figures that differ from the official ones.</p>
 <div class="tabla"><table>
@@ -346,8 +525,8 @@ footer{border-top:1px solid var(--borde);color:var(--sub);font-size:13px;padding
 
 <!-- ======================= LABORAL ======================= -->
 <section id="laboral" hidden>
-<h2><span class="es">2. Mercado laboral: participación, ocupación, desocupación e informalidad (fuente: GEIH)</span><span class="en">2. Labour market: participation, employment, unemployment and informality (source: GEIH)</span></h2>
-<h3><span class="es">2.1 Marco conceptual</span><span class="en">2.1 Conceptual framework</span></h3>
+<h2><span class="es">3. Mercado laboral: participación, ocupación, desocupación e informalidad (fuente: GEIH)</span><span class="en">3. Labour market: participation, employment, unemployment and informality (source: GEIH)</span></h2>
+<h3><span class="es">3.1 Marco conceptual</span><span class="en">3.1 Conceptual framework</span></h3>
 <p class="es">Siguiendo la tradición de medición económica aplicada a Colombia (Lora y Prada, 2016) y el marco de la Resolución I de la 19.ª Conferencia Internacional de Estadísticos del Trabajo (OIT, 2013), adoptado por el DANE, la población se clasifica de forma jerárquica y mutuamente excluyente. La población total (PT) contiene a la población en edad de trabajar (PET, personas de 15 años y más<sup><a href="#n2-1">1</a></sup>); la PET se divide en fuerza de trabajo (FT) y población fuera de la fuerza de trabajo (PFFT); y la FT se divide en población ocupada (OC) y población desocupada (DS). La terminología «desocupados» y «tasa de desocupación» sustituye a «desempleados» y «tasa de desempleo» por alineación con la 19.ª CIET<sup><a href="#n2-2">2</a></sup>.</p>
 <p class="en">Following the tradition of applied economic measurement for Colombia (Lora &amp; Prada, 2016) and Resolution I of the 19th International Conference of Labour Statisticians (ILO, 2013), adopted by DANE, the population is classified hierarchically into mutually exclusive groups. Total population (PT) contains the working-age population (PET, people aged 15+<sup><a href="#n2-1">1</a></sup>); PET splits into labour force (FT) and persons outside the labour force (PFFT); FT splits into employed (OC) and unemployed (DS). DANE uses "desocupados" (unemployed) in line with the 19th ICLS<sup><a href="#n2-2">2</a></sup>.</p>
 <div class="formula">PT ⊃ PET = FT + PFFT ;&nbsp;&nbsp; FT = OC + DS</div>
@@ -378,13 +557,13 @@ footer{border-top:1px solid var(--borde);color:var(--sub);font-size:13px;padding
 <p class="es">El DANE mide la ocupación informal considerando la empresa (sector) para los trabajadores independientes y la condición del puesto de trabajo para los asalariados<sup><a href="#n2-5">5</a></sup>. La serie con la medición vigente publicada en el anexo inicia en 2021 (trimestres móviles). Lora y Prada (2016) discuten las definiciones alternativas (empresa, puesto de trabajo, protección social) y sus implicaciones para la comparación histórica.</p>
 <p class="en">DANE measures informal employment using the enterprise (sector) for the self-employed and the job's characteristics for employees<sup><a href="#n2-5">5</a></sup>. The series under the current measurement starts in 2021 (moving quarters). Lora &amp; Prada (2016) discuss alternative definitions (enterprise, job, social protection) and their implications for historical comparison.</p>
 </div></details>
-<h3><span class="es">2.2 Evolución nacional, 2001–2026</span><span class="en">2.2 National trends, 2001–2026</span></h3>
+<h3><span class="es">3.2 Evolución nacional, 2001–2026</span><span class="en">3.2 National trends, 2001–2026</span></h3>
 <div class="panel"><div class="fil"><label><span class="es">Indicador</span><span class="en">Indicator</span> <select id="lab-ind" data-r="lab"><option value="TD">TD</option><option value="TGP">TGP</option><option value="TO">TO</option><option value="TS">TS</option></select></label></div>
 <div class="graf"><canvas id="g-lab-mensual"></canvas></div>
 <p class="fuente"><span class="es">Serie mensual, total nacional y cabeceras. Fuente: DANE, GEIH, anexo de mercado laboral (agosto de 2026). Series 2001–2020 retroproyectadas por el DANE con proyecciones CNPV 2018. Las cifras mensuales no están desestacionalizadas.</span><span class="en">Monthly series, national and urban. Source: DANE, GEIH, labour-market annex (August 2026). 2001–2020 back-projected by DANE with CNPV 2018 projections. Monthly figures are not seasonally adjusted.</span> <span class="cita-dane">Fuente: Departamento Administrativo Nacional de Estadística: <a href="https://www.dane.gov.co" target="_blank" rel="noopener">www.dane.gov.co</a></span></p></div>
 <div class="panel"><div class="graf"><canvas id="g-lab-anual"></canvas></div>
 <p class="fuente"><span class="es">Promedio anual (cálculo propio): media de las doce poblaciones mensuales publicadas y tasas recalculadas con esas medias. Puede diferir levemente de las cifras anuales de los boletines del DANE.</span><span class="en">Annual average (own calculation): mean of the twelve published monthly populations, with rates recomputed from those means. May differ slightly from DANE's annual bulletin figures.</span> <span class="cita-dane">Fuente: Departamento Administrativo Nacional de Estadística: <a href="https://www.dane.gov.co" target="_blank" rel="noopener">www.dane.gov.co</a></span></p></div>
-<h3><span class="es">2.3 Comparación departamental, 2007–2025</span><span class="en">2.3 Departmental comparison, 2007–2025</span></h3>
+<h3><span class="es">3.3 Comparación departamental, 2007–2025</span><span class="en">3.3 Departmental comparison, 2007–2025</span></h3>
 <div class="panel"><div class="fil">
  <label><span class="es">Indicador</span><span class="en">Indicator</span> <select id="lab-dind" data-r="lab"><option value="TD">TD</option><option value="TGP">TGP</option><option value="TO">TO</option></select></label>
  <label><span class="es">Año</span><span class="en">Year</span> <select id="lab-ano" data-r="lab"></select></label>
@@ -392,12 +571,12 @@ footer{border-top:1px solid var(--borde);color:var(--sub);font-size:13px;padding
  <div class="dos"><div class="mapa"><div id="m-lab"></div><div class="tip" hidden></div></div><div class="rks" id="r-lab"></div></div>
  <p class="fuente"><span class="es">Fuente: DANE, GEIH, anexo «Mercado laboral por departamentos» (serie anual 2007–2025, actualizado el 15 de abril de 2026). El anexo departamental cubre 23 departamentos; Bogotá D.C. y los departamentos de la Amazonía y la Orinoquía no tienen dato en esta fuente (gris). Haga clic en un departamento para ver su serie.</span><span class="en">Source: DANE, GEIH, departmental labour-market annex (annual 2007–2025, updated 15 April 2026). It covers 23 departments; Bogotá and the Amazon/Orinoquía departments have no data in this source (grey). Click a department to see its series.</span> <span class="cita-dane">Fuente: Departamento Administrativo Nacional de Estadística: <a href="https://www.dane.gov.co" target="_blank" rel="noopener">www.dane.gov.co</a></span></p></div>
 <div class="panel"><div class="fil"><label><span class="es">Departamento</span><span class="en">Department</span> <select id="lab-dsel"></select></label> <b id="lab-dnom"></b></div><div class="graf"><canvas id="g-lab-depto"></canvas></div></div>
-<h3><span class="es">2.4 Brecha entre mujeres y hombres por departamento</span><span class="en">2.4 Gap between women and men by department</span></h3>
+<h3><span class="es">3.4 Brecha entre mujeres y hombres por departamento</span><span class="en">3.4 Gap between women and men by department</span></h3>
 <div class="panel"><p class="nota es">Diferencia en puntos porcentuales (mujeres menos hombres) del indicador y año seleccionados arriba. Valores positivos en la TD indican mayor desocupación femenina.</p><p class="nota en">Difference in percentage points (women minus men) for the indicator and year selected above. Positive TD values indicate higher female unemployment.</p><div class="rks" id="r-lab-gen"></div></div>
-<h3><span class="es">2.5 Informalidad laboral, 2021–2026</span><span class="en">2.5 Labour informality, 2021–2026</span></h3>
+<h3><span class="es">3.5 Informalidad laboral, 2021–2026</span><span class="en">3.5 Labour informality, 2021–2026</span></h3>
 <div class="panel"><div class="graf"><canvas id="g-inf"></canvas></div><p class="fuente"><span class="es">Trimestre móvil fechado por su último mes. Fuente: DANE, GEIH, anexo «Empleo informal y seguridad social» (junio–agosto de 2026).</span><span class="en">Moving quarter dated by its last month. Source: DANE, GEIH, informal employment and social security annex (June–August 2026).</span> <span class="cita-dane">Fuente: Departamento Administrativo Nacional de Estadística: <a href="https://www.dane.gov.co" target="_blank" rel="noopener">www.dane.gov.co</a></span></p></div>
 <div class="panel"><p><span class="es">Proporción de informalidad por ciudad, trimestre móvil terminado en</span><span class="en">Informality share by city, moving quarter ending</span> <b id="inf-ult"></b></p><div class="rks" id="r-inf"></div><p class="fuente"><span class="es">Los resultados por ciudad incluyen solo la cabecera municipal.</span><span class="en">City results include only the municipal urban centre.</span></p></div>
-<h3><span class="es">2.6 Indicadores laborales promedio por período de gobierno</span><span class="en">2.6 Average labour indicators by government term</span></h3>
+<h3><span class="es">3.6 Indicadores laborales promedio por período de gobierno</span><span class="en">3.6 Average labour indicators by government term</span></h3>
 <div class="panel tabla"><table id="t-mandatos"><thead><tr><th><span class="es">Período de gobierno</span><span class="en">Government term</span></th><th><span class="es">Años</span><span class="en">Years</span></th><th><span class="es">Meses con dato</span><span class="en">Months with data</span></th><th>TGP</th><th>TO</th><th>TD</th></tr></thead><tbody></tbody></table>
 <p class="fuente"><span class="es">Cálculo propio: promedio simple de las tasas mensuales publicadas entre agosto del año de posesión (7 de agosto) y julio del año de terminación. La serie mensual inicia en enero de 2001. La comparación es descriptiva: las tasas dependen del ciclo económico, de choques externos y de cambios demográficos, por lo que no deben interpretarse como efecto de un gobierno.</span><span class="en">Own calculation: simple mean of the published monthly rates from August of the inauguration year (7 August) to July of the final year. The monthly series begins in January 2001. The comparison is descriptive: rates depend on the business cycle, external shocks and demographics, and should not be read as the effect of a government.</span></p></div>
 <ol class="notas">
@@ -411,7 +590,7 @@ footer{border-top:1px solid var(--borde);color:var(--sub);font-size:13px;padding
 
 <!-- ======================= POBREZA ======================= -->
 <section id="pobreza" hidden>
-<h2><span class="es">3. Pobreza monetaria y desigualdad del ingreso (fuente: GEIH)</span><span class="en">3. Monetary poverty and income inequality (source: GEIH)</span></h2>
+<h2><span class="es">4. Pobreza monetaria y desigualdad del ingreso (fuente: GEIH)</span><span class="en">4. Monetary poverty and income inequality (source: GEIH)</span></h2>
 <p class="es">El DANE es la entidad encargada de la estimación y oficialización de las cifras de pobreza (CONPES 150 de 2012). La pobreza monetaria evalúa la suficiencia del ingreso de los hogares frente al costo de una canasta: la línea de pobreza extrema (LI) representa el costo de una canasta de alimentos y la línea de pobreza (LP) agrega el costo de los demás bienes y servicios. Las líneas vigentes se construyeron con la Encuesta Nacional de Presupuestos de los Hogares (ENPH) 2016–2017, y la serie comparable con esa metodología inicia en 2012<sup><a href="#n3-1">1</a></sup>.</p>
 <p class="en">DANE is responsible for estimating and officialising poverty figures (CONPES 150, 2012). Monetary poverty assesses whether household income suffices to buy a basket: the extreme poverty line (LI) is the cost of a food basket and the poverty line (LP) adds other goods and services. Current lines were built with the 2016–2017 National Household Budget Survey (ENPH), and the comparable series under that method starts in 2012<sup><a href="#n3-1">1</a></sup>.</p>
 <details open><summary><span class="es">Cálculo paso a paso del ingreso y de la condición de pobreza (con un ejemplo ilustrativo del DANE)</span><span class="en">Step-by-step: income aggregation and poverty status (with an illustrative DANE example)</span></summary><div>
@@ -457,25 +636,25 @@ footer{border-top:1px solid var(--borde);color:var(--sub);font-size:13px;padding
 <p class="es">Mide la desigualdad del ingreso per cápita de la unidad de gasto entre 0 (todos con el mismo ingreso) y 1 (una persona concentra todo el ingreso). Se calcula con los factores de expansión.</p>
 <p class="en">Measures inequality of per capita spending-unit income from 0 (equal) to 1 (one person holds all income), using expansion factors.</p>
 </div></details>
-<h3><span class="es">3.1 Incidencia, desigualdad y dominios geográficos, 2012–2025</span><span class="en">3.1 Headcount, inequality and geographic domains, 2012–2025</span></h3>
+<h3><span class="es">4.1 Incidencia, desigualdad y dominios geográficos, 2012–2025</span><span class="en">4.1 Headcount, inequality and geographic domains, 2012–2025</span></h3>
 <div class="panel"><div class="fil"><label><span class="es">Indicador</span><span class="en">Indicator</span> <select id="pob-ind" data-r="pob"><option value="PM">Pobreza monetaria / Poverty</option><option value="PME">Pobreza extrema / Extreme poverty</option><option value="Gini">Gini</option></select></label></div>
 <div class="graf"><canvas id="g-pob"></canvas></div>
 <p class="fuente"><span class="es">Fuente: DANE, GEIH, anexo «Pobreza monetaria y desigualdad, total nacional» 2025 (publicado el 12 de junio de 2026). 2012–2021: marco 2005 con factor de ajuste de empalme; 2022–2025: marco CNPV 2018. Desde 2020 se cruzan registros administrativos de ayudas institucionales.</span><span class="en">Source: DANE, GEIH, national monetary poverty and inequality annex 2025 (released 12 June 2026). 2012–2021: 2005 frame with splicing adjustment; 2022–2025: CNPV 2018 frame. Since 2020, administrative records of institutional transfers are linked.</span> <span class="cita-dane">Fuente: Departamento Administrativo Nacional de Estadística: <a href="https://www.dane.gov.co" target="_blank" rel="noopener">www.dane.gov.co</a></span></p></div>
 <div class="panel"><div class="graf"><canvas id="g-brecha"></canvas></div><p class="fuente"><span class="es">Brecha y severidad nacionales, multiplicadas por 100 tal como las publica el DANE.</span><span class="en">National gap and severity, multiplied by 100 as published by DANE.</span> <span class="cita-dane">Fuente: Departamento Administrativo Nacional de Estadística: <a href="https://www.dane.gov.co" target="_blank" rel="noopener">www.dane.gov.co</a></span></p></div>
-<h3><span class="es">3.2 Ingreso per cápita y líneas de pobreza</span><span class="en">3.2 Per capita income and poverty lines</span></h3>
+<h3><span class="es">4.2 Ingreso per cápita y líneas de pobreza</span><span class="en">4.2 Per capita income and poverty lines</span></h3>
 <div class="panel"><div class="fil"><label><span class="es">Dominio</span><span class="en">Domain</span> <select id="pob-dom" data-r="pob"><option>Nacional</option><option>Cabeceras</option><option>Centros poblados y rural disperso</option></select></label> <span>(<span data-moneda></span>)</span></div>
 <div class="aviso-constantes" hidden><span class="es">Atención: las cifras están en COP constantes de 2025 (cálculo propio con el IPC promedio anual del DANE). Las cifras oficiales están en COP corrientes.</span><span class="en">Warning: figures are in constant 2025 COP (own calculation with DANE's annual average CPI). Official figures are in current COP.</span></div>
 <div class="graf"><canvas id="g-ing"></canvas></div>
 <p class="fuente"><span class="es">Valores mensuales por persona en pesos colombianos (COP). Fuente: DANE, anexo de pobreza monetaria 2025; IPC del DANE (base diciembre 2018 = 100) para la conversión opcional.</span><span class="en">Monthly values per person in Colombian pesos (COP). Source: DANE poverty annex 2025; DANE CPI (base Dec. 2018 = 100) for the optional conversion.</span> <span class="cita-dane">Fuente: Departamento Administrativo Nacional de Estadística: <a href="https://www.dane.gov.co" target="_blank" rel="noopener">www.dane.gov.co</a></span></p></div>
-<h3><span class="es">3.3 Ciudades capitales y áreas metropolitanas</span><span class="en">3.3 Capital cities and metropolitan areas</span></h3>
+<h3><span class="es">4.3 Ciudades capitales y áreas metropolitanas</span><span class="en">4.3 Capital cities and metropolitan areas</span></h3>
 <div class="panel"><div class="fil"><label><span class="es">Año</span><span class="en">Year</span> <select id="pob-ano" data-r="pob"></select></label></div><div class="rks" id="r-ciu"></div>
 <p class="fuente"><span class="es">Indicador seleccionado en 3.1. Barranquilla, Bucaramanga, Cali, Cúcuta, Manizales, Medellín y Pereira sin área metropolitana solo tienen serie desde 2022.</span><span class="en">Indicator selected in 3.1. Barranquilla, Bucaramanga, Cali, Cúcuta, Manizales, Medellín and Pereira without metropolitan area only have data from 2022.</span></p></div>
-<h3><span class="es">3.4 Departamentos, 2021–2025</span><span class="en">3.4 Departments, 2021–2025</span></h3>
+<h3><span class="es">4.4 Departamentos, 2021–2025</span><span class="en">4.4 Departments, 2021–2025</span></h3>
 <div class="panel"><div class="fil"><label><span class="es">Indicador</span><span class="en">Indicator</span> <select id="pobd-ind" data-r="pob"><option value="PM">Pobreza monetaria (%)</option><option value="PME">Pobreza extrema (%)</option><option value="Gini">Gini</option><option value="Ingpc">Ingreso per cápita (COP)</option><option value="LP">Línea de pobreza (COP)</option><option value="LI">Línea de pobreza extrema (COP)</option></select></label><label><span class="es">Año</span><span class="en">Year</span> <select id="pobd-ano" data-r="pob"></select></label></div>
 <div class="aviso-constantes" hidden><span class="es">Atención: indicadores monetarios en COP constantes de 2025.</span><span class="en">Warning: monetary indicators in constant 2025 COP.</span></div>
 <div class="dos"><div class="mapa"><div id="m-pob"></div><div class="tip" hidden></div></div><div class="rks" id="r-pob"></div></div>
 <p class="fuente"><span class="es">Fuente: DANE, anexo «Pobreza monetaria departamental» 2025 (23 departamentos y Bogotá D.C.). La serie departamental publicada en este anexo inicia en 2021.</span><span class="en">Source: DANE departmental monetary poverty annex 2025 (23 departments and Bogotá). The departmental series in this annex starts in 2021.</span> <span class="cita-dane">Fuente: Departamento Administrativo Nacional de Estadística: <a href="https://www.dane.gov.co" target="_blank" rel="noopener">www.dane.gov.co</a></span></p></div>
-<h3><span class="es">3.5 Incidencia por sexo de la persona</span><span class="en">3.5 Headcount by sex</span></h3>
+<h3><span class="es">4.5 Incidencia por sexo de la persona</span><span class="en">4.5 Headcount by sex</span></h3>
 <div class="panel tabla"><table><thead><tr><th><span class="es">Dominio</span><span class="en">Domain</span></th><th>2024 H</th><th>2024 M</th><th>2025 H</th><th>2025 M</th></tr></thead><tbody id="pob-sexo"></tbody></table><p class="fuente"><span class="es">H: hombres; M: mujeres. Incidencia de pobreza monetaria (%). El anexo publica esta desagregación para 2024 y 2025.</span><span class="en">H: men; M: women. Monetary poverty headcount (%). The annex publishes this breakdown for 2024 and 2025.</span></p></div>
 <ol class="notas">
  <li id="n3-1">DANE, actualización metodológica de la pobreza monetaria (2020) y comunicado del Comité de Expertos en Pobreza. El Comité consideró que una serie muy alejada del período de referencia 2016–2017 sería menos representativa; por ello la serie oficial actual inicia en 2012. Existen series anteriores (MESEP, 2002–2020) con la metodología previa, no comparables con la actual.</li>
@@ -485,7 +664,7 @@ footer{border-top:1px solid var(--borde);color:var(--sub);font-size:13px;padding
 
 <!-- ======================= IPM ======================= -->
 <section id="ipm" hidden>
-<h2><span class="es">4. Pobreza multidimensional (fuente: ECV)</span><span class="en">4. Multidimensional poverty (source: ECV)</span></h2>
+<h2><span class="es">5. Pobreza multidimensional (fuente: ECV)</span><span class="en">5. Multidimensional poverty (source: ECV)</span></h2>
 <p class="es">El Índice de Pobreza Multidimensional (IPM) de Colombia, adaptación de la metodología de Alkire y Foster (2011) desarrollada por Angulo, Díaz y Pardo (2011), mide privaciones directas en cinco dimensiones y quince indicadores. Su fuente oficial es la <b>Encuesta Nacional de Calidad de Vida (ECV)</b>, no la GEIH; se incluye aquí porque es la medida complementaria de la pobreza monetaria según el CONPES 150 de 2012<sup><a href="#n4-1">1</a></sup>.</p>
 <p class="en">Colombia's Multidimensional Poverty Index (MPI), an adaptation of Alkire &amp; Foster (2011) developed by Angulo, Díaz &amp; Pardo (2011), measures direct deprivations in five dimensions and fifteen indicators. Its official source is the <b>National Quality of Life Survey (ECV)</b>, not the GEIH; it is included as the complementary measure to monetary poverty under CONPES 150 (2012)<sup><a href="#n4-1">1</a></sup>.</p>
 <details open><summary><span class="es">Cálculo paso a paso del IPM</span><span class="en">Step-by-step: computing the MPI</span></summary><div>
@@ -514,10 +693,10 @@ footer{border-top:1px solid var(--borde);color:var(--sub);font-size:13px;padding
 <tr><td><span class="es">Acceso a servicios públicos domiciliarios y condiciones de la vivienda (0,20)</span><span class="en">Utilities and housing (0.20)</span></td><td><span class="es">Sin acceso a fuente de agua mejorada; inadecuada eliminación de excretas; material inadecuado de pisos; material inadecuado de paredes exteriores; hacinamiento crítico (0,04)</span><span class="en">No improved water source; inadequate sanitation; inadequate floors; inadequate exterior walls; critical overcrowding (0.04)</span></td></tr>
 </table></div>
 </div></details>
-<h3><span class="es">4.1 Evolución nacional y regional, 2010–2025</span><span class="en">4.1 National and regional trends, 2010–2025</span></h3>
+<h3><span class="es">5.1 Evolución nacional y regional, 2010–2025</span><span class="en">5.1 National and regional trends, 2010–2025</span></h3>
 <div class="panel"><div class="graf"><canvas id="g-ipm"></canvas></div><p class="fuente"><span class="es">Fuente: DANE, ECV, anexo «Pobreza multidimensional» 2025 (actualizado el 14 de abril de 2026). En 2017 los datos solo son representativos para cabeceras, por lo que no hay dato nacional ni rural; en 2020 la inasistencia escolar integra información del SIMAT; en 2021 el operativo rural incorporó registro fotográfico de servicios públicos.</span><span class="en">Source: DANE, ECV, MPI annex 2025 (updated 14 April 2026). In 2017 data are representative only for urban centres, hence no national or rural figure; in 2020 school attendance uses SIMAT data; in 2021 rural fieldwork added photographic records of utilities.</span> <span class="cita-dane">Fuente: Departamento Administrativo Nacional de Estadística: <a href="https://www.dane.gov.co" target="_blank" rel="noopener">www.dane.gov.co</a></span></p></div>
 <div class="panel"><div class="graf"><canvas id="g-ipm-reg"></canvas></div><p class="fuente"><span class="es">Regiones del DANE. El total nacional no incluye la zona rural de la Amazonía-Orinoquía.</span><span class="en">DANE regions. The national total excludes rural Amazon-Orinoquía.</span> <span class="cita-dane">Fuente: Departamento Administrativo Nacional de Estadística: <a href="https://www.dane.gov.co" target="_blank" rel="noopener">www.dane.gov.co</a></span></p></div>
-<h3><span class="es">4.2 Departamentos y privaciones, 2018–2025</span><span class="en">4.2 Departments and deprivations, 2018–2025</span></h3>
+<h3><span class="es">5.2 Departamentos y privaciones, 2018–2025</span><span class="en">5.2 Departments and deprivations, 2018–2025</span></h3>
 <div class="panel"><div class="fil"><label><span class="es">Año</span><span class="en">Year</span> <select id="ipm-ano" data-r="ipm"></select></label><label><span class="es">Zona</span><span class="en">Area</span> <select id="ipm-zona" data-r="ipm"><option value="total">Total</option><option value="cabeceras">Cabeceras / Urban</option><option value="rural">Centros poblados y rural / Rural</option></select></label></div>
 <div class="dos"><div class="mapa"><div id="m-ipm"></div><div class="tip" hidden></div></div><div class="rks" id="r-ipm"></div></div>
 <p class="fuente"><span class="es">Fuente: DANE, ECV, anexo «Pobreza multidimensional departamental» 2025 (33 territorios). Haga clic en un departamento para ver sus privaciones.</span><span class="en">Source: DANE, ECV, departmental MPI annex 2025 (33 territories). Click a department to see its deprivations.</span> <span class="cita-dane">Fuente: Departamento Administrativo Nacional de Estadística: <a href="https://www.dane.gov.co" target="_blank" rel="noopener">www.dane.gov.co</a></span></p></div>
@@ -527,7 +706,7 @@ footer{border-top:1px solid var(--borde);color:var(--sub);font-size:13px;padding
 
 <!-- ======================= SALUD ======================= -->
 <section id="salud" hidden>
-<h2><span class="es">5. Aseguramiento en salud (fuentes: Ministerio de Salud y Protección Social, GEIH y ECV)</span><span class="en">5. Health insurance coverage (sources: Ministry of Health, GEIH and ECV)</span></h2>
+<h2><span class="es">6. Aseguramiento en salud (fuentes: Ministerio de Salud y Protección Social, GEIH y ECV)</span><span class="en">6. Health insurance coverage (sources: Ministry of Health, GEIH and ECV)</span></h2>
 <p class="es">El aseguramiento en salud puede medirse con tres fuentes que responden preguntas distintas: (i) el registro administrativo de afiliados al SGSSS (Base de Datos Única de Afiliados, consolidada por el Ministerio de Salud y Protección Social), que cuenta personas afiliadas; (ii) la GEIH, que pregunta a las personas si están afiliadas y a qué régimen; y (iii) la ECV, que alimenta la privación «sin aseguramiento en salud» del IPM. Sus cifras no coinciden por diseño, y la comparación entre ellas es informativa en sí misma<sup><a href="#n5-1">1</a></sup>.</p>
 <p class="en">Health insurance can be measured with three sources that answer different questions: (i) the SGSSS administrative enrolment register (Single Enrolment Database, consolidated by the Ministry of Health), which counts enrolled people; (ii) the GEIH, which asks people whether they are enrolled and in which regime; and (iii) the ECV, which feeds the MPI deprivation "no health insurance". Their figures differ by design, and the comparison is informative in itself<sup><a href="#n5-1">1</a></sup>.</p>
 <details><summary><span class="es">Cálculo paso a paso de la cobertura administrativa</span><span class="en">Step-by-step: administrative coverage</span></summary><div>
@@ -539,22 +718,22 @@ footer{border-top:1px solid var(--borde);color:var(--sub);font-size:13px;padding
 <ol class="es"><li>En el módulo de características generales y seguridad social en salud, la persona responde si está afiliada, es cotizante o beneficiaria de alguna entidad de seguridad social en salud y a qué régimen pertenece.</li><li>Se suman los factores de expansión de los afiliados y se dividen por la población de referencia.</li><li>El DANE publica en sus anexos esta información para la <b>población ocupada</b> (trimestre móvil, 2007–2026), junto con la cotización a pensión.</li></ol>
 <ol class="en"><li>In the general characteristics and health social security module, people report whether they are enrolled as contributors or beneficiaries and in which regime.</li><li>Expansion factors of enrollees are added and divided by the reference population.</li><li>DANE's annexes publish this for the <b>employed population</b> (moving quarter, 2007–2026), alongside pension contributions.</li></ol>
 </div></details>
-<h3><span class="es">5.1 Cobertura administrativa nacional y composición por régimen, 2013–2026</span><span class="en">5.1 National administrative coverage and regime mix, 2013–2026</span></h3>
+<h3><span class="es">6.1 Cobertura administrativa nacional y composición por régimen, 2013–2026</span><span class="en">6.1 National administrative coverage and regime mix, 2013–2026</span></h3>
 <div class="panel"><div class="graf"><canvas id="g-aseg"></canvas></div><p class="fuente"><span class="es">Cálculo propio con cifras de afiliación del Ministerio de Salud y Protección Social y proyecciones de población del DANE.</span><span class="en">Own calculation with Ministry of Health enrolment figures and DANE population projections.</span> <span class="cita-dane">Fuente: Departamento Administrativo Nacional de Estadística: <a href="https://www.dane.gov.co" target="_blank" rel="noopener">www.dane.gov.co</a></span></p></div>
 <div class="panel"><div class="graf"><canvas id="g-reg"></canvas></div></div>
-<h3><span class="es">5.2 Cobertura administrativa por departamento</span><span class="en">5.2 Administrative coverage by department</span></h3>
+<h3><span class="es">6.2 Cobertura administrativa por departamento</span><span class="en">6.2 Administrative coverage by department</span></h3>
 <div class="panel"><div class="fil"><label><span class="es">Año</span><span class="en">Year</span> <select id="aseg-ano" data-r="salud"></select></label> <span><span class="es">Corte:</span><span class="en">Cut-off:</span> <b id="aseg-corte"></b></span></div>
 <div class="dos"><div class="mapa"><div id="m-aseg"></div><div class="tip" hidden></div></div><div class="rks" id="r-aseg"></div></div></div>
-<h3><span class="es">5.3 Afiliación de la población ocupada según la GEIH, 2007–2026</span><span class="en">5.3 Enrolment of the employed according to the GEIH, 2007–2026</span></h3>
+<h3><span class="es">6.3 Afiliación de la población ocupada según la GEIH, 2007–2026</span><span class="en">6.3 Enrolment of the employed according to the GEIH, 2007–2026</span></h3>
 <div class="panel"><div class="graf"><canvas id="g-ss"></canvas></div><p class="fuente"><span class="es">Fuente: DANE, GEIH, anexo «Empleo informal y seguridad social», total nacional, trimestre móvil.</span><span class="en">Source: DANE, GEIH, informal employment and social security annex, national, moving quarter.</span> <span class="cita-dane">Fuente: Departamento Administrativo Nacional de Estadística: <a href="https://www.dane.gov.co" target="_blank" rel="noopener">www.dane.gov.co</a></span></p></div>
-<h3><span class="es">5.4 Hogares con privación por falta de aseguramiento (IPM), 2010–2025</span><span class="en">5.4 Households deprived of health insurance (MPI), 2010–2025</span></h3>
+<h3><span class="es">6.4 Hogares con privación por falta de aseguramiento (IPM), 2010–2025</span><span class="en">6.4 Households deprived of health insurance (MPI), 2010–2025</span></h3>
 <div class="panel"><div class="graf"><canvas id="g-ipm-salud"></canvas></div><p class="fuente"><span class="es">Fuente: DANE, ECV, anexo IPM, indicador «Sin aseguramiento en salud» (% de hogares).</span><span class="en">Source: DANE, ECV, MPI annex, "No health insurance" (% of households).</span> <span class="cita-dane">Fuente: Departamento Administrativo Nacional de Estadística: <a href="https://www.dane.gov.co" target="_blank" rel="noopener">www.dane.gov.co</a></span></p></div>
 <ol class="notas"><li id="n5-1">Ministerio de Salud y Protección Social, cifras de afiliación en salud y manual metodológico. La cobertura administrativa por departamento procede del repositorio previo de los autores sobre aseguramiento en salud (https://doar95.github.io/aseguramiento-salud-colombia/).</li></ol>
 </section>
 
 <!-- ======================= COMPARABILIDAD ======================= -->
 <section id="comparabilidad" hidden>
-<h2><span class="es">6. Criterios de comparabilidad regional y temporal</span><span class="en">6. Criteria for regional and temporal comparability</span></h2>
+<h2><span class="es">7. Criterios de comparabilidad regional y temporal</span><span class="en">7. Criteria for regional and temporal comparability</span></h2>
 <p class="es">Una comparación es válida cuando las cifras miden el mismo concepto, con la misma metodología, sobre la misma población de referencia y con precisión suficiente. La tabla resume, para cada serie, el período y los dominios publicados y los cortes metodológicos que el lector debe considerar.</p>
 <p class="en">A comparison is valid when figures measure the same concept, with the same method, for the same reference population and with sufficient precision. The table summarises, for each series, the published period and domains and the methodological breaks to consider.</p>
 <div class="tabla"><table>
@@ -563,24 +742,24 @@ footer{border-top:1px solid var(--borde);color:var(--sub);font-size:13px;padding
 <tr><td><span class="es">Mercado laboral departamental (anual)</span><span class="en">Departmental labour market (annual)</span></td><td>2007 – 2025</td><td><span class="es">23 departamentos; sexo; cabecera/rural</span><span class="en">23 departments; sex; urban/rural</span></td><td><span class="es">Mayor error de muestreo en desagregaciones; Bogotá y los nuevos departamentos no se publican en este anexo.</span><span class="en">Higher sampling error in breakdowns; Bogotá and newer departments not in this annex.</span></td></tr>
 <tr><td><span class="es">Informalidad</span><span class="en">Informality</span></td><td>2021 – 2026</td><td><span class="es">Nacional; 13 y 23 ciudades; ciudades</span><span class="en">National; 13 and 23 cities; cities</span></td><td><span class="es">Trimestre móvil; ciudades solo cabecera.</span><span class="en">Moving quarter; cities urban only.</span></td></tr>
 <tr><td><span class="es">Pobreza monetaria y Gini</span><span class="en">Monetary poverty and Gini</span></td><td>2012 – 2025</td><td><span class="es">Nacional; cabeceras; rural; 23 capitales; 7 A.M.; departamentos (2021–2025)</span><span class="en">National; urban; rural; 23 capitals; 7 metro areas; departments (2021–2025)</span></td><td><span class="es">Líneas ENPH 2016–2017; 2012–2021 marco 2005 con empalme; 2022–2025 marco 2018; desde 2020 cruce con registros de ayudas institucionales.</span><span class="en">ENPH 2016–2017 lines; 2012–2021 2005 frame spliced; 2022–2025 2018 frame; since 2020 linkage with transfer records.</span></td></tr>
-<tr><td><span class="es">Pobreza multidimensional (ECV)</span><span class="en">Multidimensional poverty (ECV)</span></td><td><span class="es">2010 – 2025 (nacional); 2018 – 2025 (departamental)</span><span class="en">2010 – 2025 (national); 2018 – 2025 (departmental)</span></td><td><span class="es">Nacional; zonas; 6 regiones; 33 territorios</span><span class="en">National; areas; 6 regions; 33 territories</span></td><td><span class="es">2017 solo cabeceras; cambios en 2020 y 2021 (ver sección 4).</span><span class="en">2017 urban only; changes in 2020 and 2021 (see section 4).</span></td></tr>
+<tr><td><span class="es">Pobreza multidimensional (ECV)</span><span class="en">Multidimensional poverty (ECV)</span></td><td><span class="es">2010 – 2025 (nacional); 2018 – 2025 (departamental)</span><span class="en">2010 – 2025 (national); 2018 – 2025 (departmental)</span></td><td><span class="es">Nacional; zonas; 6 regiones; 33 territorios</span><span class="en">National; areas; 6 regions; 33 territories</span></td><td><span class="es">2017 solo cabeceras; cambios en 2020 y 2021 (ver sección 5).</span><span class="en">2017 urban only; changes in 2020 and 2021 (see section 5).</span></td></tr>
 <tr><td><span class="es">Cobertura administrativa del SGSSS</span><span class="en">SGSSS administrative coverage</span></td><td>2013 – 2026</td><td><span class="es">Nacional; 33 territorios</span><span class="en">National; 33 territories</span></td><td><span class="es">Registro administrativo, no encuesta; sensible a depuración de bases y a la proyección de población.</span><span class="en">Administrative record, not a survey; sensitive to database clean-up and population projections.</span></td></tr>
 </table></div>
-<h3><span class="es">6.1 Comparaciones por año calendario y por período de gobierno</span><span class="en">6.1 Comparisons by calendar year and by government term</span></h3>
-<p class="es">Las series anuales se comparan por año calendario. Para comparar períodos de gobierno (que inician el 7 de agosto), las series mensuales permiten promediar exactamente los meses de cada período (sección 2.6). Las series anuales (pobreza, IPM, cobertura) solo pueden asignarse a años completos; el control superior «Sombrear períodos de gobierno» marca sobre los gráficos anuales los años en que inicia y termina cada período, como referencia visual. En ningún caso la coincidencia temporal implica atribución causal.</p>
-<p class="en">Annual series are compared by calendar year. To compare government terms (starting on 7 August), monthly series allow exact averaging of each term's months (section 2.6). Annual series (poverty, MPI, coverage) can only be assigned to whole years; the "Shade government terms" control marks the start and end years of each term on annual charts as a visual reference. Temporal coincidence never implies causal attribution.</p>
-<h3><span class="es">6.2 Comparaciones territoriales</span><span class="en">6.2 Territorial comparisons</span></h3>
+<h3><span class="es">7.1 Comparaciones por año calendario y por período de gobierno</span><span class="en">7.1 Comparisons by calendar year and by government term</span></h3>
+<p class="es">Las series anuales se comparan por año calendario. Para comparar períodos de gobierno (que inician el 7 de agosto), las series mensuales permiten promediar exactamente los meses de cada período (sección 3.6). Las series anuales (pobreza, IPM, cobertura) solo pueden asignarse a años completos; el control superior «Sombrear períodos de gobierno» marca sobre los gráficos anuales los años en que inicia y termina cada período, como referencia visual. En ningún caso la coincidencia temporal implica atribución causal.</p>
+<p class="en">Annual series are compared by calendar year. To compare government terms (starting on 7 August), monthly series allow exact averaging of each term's months (section 3.6). Annual series (poverty, MPI, coverage) can only be assigned to whole years; the "Shade government terms" control marks the start and end years of each term on annual charts as a visual reference. Temporal coincidence never implies causal attribution.</p>
+<h3><span class="es">7.2 Comparaciones territoriales</span><span class="en">7.2 Territorial comparisons</span></h3>
 <p class="es">Las ciudades con área metropolitana (A.M.) no son comparables con la misma ciudad sin A.M.; las cifras de ciudades en el mercado laboral solo cubren la cabecera municipal; los departamentos de la Amazonía y la Orinoquía tienen cobertura parcial en la GEIH. Para comparar territorios en un mismo año se recomienda revisar los intervalos de confianza publicados por el DANE: dos cifras cuyos intervalos se superponen pueden no ser estadísticamente distintas.</p>
 <p class="en">Cities with metropolitan area (A.M.) are not comparable with the same city without it; labour-market city figures only cover the urban centre; Amazon and Orinoquía departments have partial GEIH coverage. When comparing territories in a given year, check DANE's confidence intervals: two figures with overlapping intervals may not be statistically different.</p>
 </section>
 
 <!-- ======================= ACCESO ======================= -->
 <section id="acceso" hidden>
-<h2><span class="es">7. Acceso, descarga y uso de los datos públicos del DANE</span><span class="en">7. Access, download and use of DANE's public data</span></h2>
+<h2><span class="es">8. Acceso, descarga y uso de los datos públicos del DANE</span><span class="en">8. Access, download and use of DANE's public data</span></h2>
 <p class="es">Toda la información usada aquí es pública y gratuita. Por las condiciones de uso del DANE, este repositorio <b>no redistribuye</b> los anexos ni los microdatos: el lector los descarga directamente de la entidad siguiendo esta guía.</p>
 <p class="en">All information used here is public and free. Under DANE's terms of use, this repository <b>does not redistribute</b> annexes or microdata: readers download them directly from DANE following this guide.</p>
 <div class="aviso"><span class="es"><b>Condiciones de uso del DANE.</b> Según el «Requisito de cita» de los catálogos de microdatos, se autoriza el uso de la información siempre que se cite textualmente: «Fuente: Departamento Administrativo Nacional de Estadística: www.dane.gov.co». Queda prohibida la copia o reproducción de los datos en cualquier medio electrónico que permita su disponibilidad a múltiples usuarios sin el visto bueno previo y por escrito del DANE. La reserva estadística (Ley 79 de 1993, art. 5) solo permite difundir resúmenes numéricos que no identifiquen a personas u hogares.</span><span class="en"><b>DANE terms of use.</b> Under the "citation requirement" of the microdata catalogues, use is authorised provided the following is cited verbatim: "Fuente: Departamento Administrativo Nacional de Estadística: www.dane.gov.co". Copying or reproducing the data in any electronic medium that makes it available to multiple users without DANE's prior written approval is prohibited. Statistical confidentiality (Law 79 of 1993, art. 5) only allows numerical summaries that do not identify people or households.</span></div>
-<h3><span class="es">7.1 Anexos estadísticos en Excel (cifras ya calculadas)</span><span class="en">7.1 Statistical annexes in Excel (ready-made figures)</span></h3>
+<h3><span class="es">8.1 Anexos estadísticos en Excel (cifras ya calculadas)</span><span class="en">8.1 Statistical annexes in Excel (ready-made figures)</span></h3>
 <div class="tabla"><table>
 <tr><th><span class="es">Tema</span><span class="en">Topic</span></th><th><span class="es">Página del DANE</span><span class="en">DANE page</span></th><th><span class="es">Archivo usado en este repositorio</span><span class="en">File used here</span></th></tr>
 <tr><td><span class="es">Mercado laboral mensual (GEIH)</span><span class="en">Monthly labour market (GEIH)</span></td><td><a href="https://www.dane.gov.co/index.php/estadisticas-por-tema/mercado-laboral/empleo-y-desempleo" target="_blank" rel="noopener">Empleo y desempleo</a></td><td><a href="https://www.dane.gov.co/files/operaciones/GEIH/anex-GEIH-ago2026.xlsx">anex-GEIH-ago2026.xlsx</a></td></tr>
@@ -591,7 +770,7 @@ footer{border-top:1px solid var(--borde);color:var(--sub);font-size:13px;padding
 </table></div>
 <p class="es">En cada página del DANE, los anexos están en la sección de la publicación más reciente, en la fila «Anexos», con el botón «Descargar». Estos archivos no tienen verificación de robot. Si el DANE publica una versión más reciente, el nombre del archivo cambia (por ejemplo, el mes) y el enlace directo anterior puede dejar de funcionar; en ese caso, ingrese por la página del tema.</p>
 <p class="en">On each DANE page, annexes are under the latest release, in the "Anexos" row, with a "Descargar" (download) button. These files have no robot check. When DANE publishes a newer version, the file name changes (e.g., the month) and the old direct link may stop working; in that case, go through the topic page.</p>
-<h3><span class="es">7.2 Microdatos anonimizados: guía paso a paso</span><span class="en">7.2 Anonymised microdata: step-by-step guide</span></h3>
+<h3><span class="es">8.2 Microdatos anonimizados: guía paso a paso</span><span class="en">8.2 Anonymised microdata: step-by-step guide</span></h3>
 <div class="tabla"><table>
 <tr><th><span class="es">Estudio</span><span class="en">Study</span></th><th><span class="es">Enlace en el catálogo ANDA</span><span class="en">ANDA catalogue link</span></th><th><span class="es">Archivos</span><span class="en">Files</span></th></tr>
 <tr><td>GEIH 2025</td><td><a href="https://microdatos.dane.gov.co/index.php/catalog/853" target="_blank" rel="noopener">catalog/853</a></td><td><span class="es">12 archivos mensuales («Enero 2025.zip» a «Diciembre 2025.zip»); cada uno contiene los 8 módulos</span><span class="en">12 monthly files ("Enero 2025.zip" to "Diciembre 2025.zip"); each contains the 8 modules</span></td></tr>
@@ -630,14 +809,14 @@ footer{border-top:1px solid var(--borde);color:var(--sub);font-size:13px;padding
  <figcaption><span class="es">Pasos 4 a 6: marque la casilla y luego pulse «Descargar». La ventana real del DANE puede variar en diseño.</span><span class="en">Steps 4–6: tick the box, then press "Descargar". DANE's real window may look different.</span></figcaption>
 </figure>
 </div>
-<h3><span class="es">7.2.1 Descarga de los factores de expansión departamentales (estudio 789)</span><span class="en">7.2.1 Downloading the departmental expansion factors (study 789)</span></h3>
+<h3><span class="es">8.2.1 Descarga de los factores de expansión departamentales (estudio 789)</span><span class="en">8.2.1 Downloading the departmental expansion factors (study 789)</span></h3>
 <ol class="pasos es">
  <li>Abra <a href="https://microdatos.dane.gov.co/index.php/catalog/789" target="_blank" rel="noopener">microdatos.dane.gov.co/index.php/catalog/789</a>. El título es «Gran Encuesta Integrada de Hogares - GEIH - Factores de Expansión Departamental 2007 - 2025».</li>
  <li>Haga clic en la pestaña «Obtener Microdatos». La lista «Archivos de datos» tiene un recuadro por año, de 2007 a 2025, y uno adicional, «Factor de expansión retroproyectado 2010_2020».</li>
  <li>Descargue <b>solo el año que va a analizar</b> (por ejemplo, el último recuadro: «Factor expansion departamental 2025»). No necesita los demás años.</li>
  <li>Pulse «Descargar», marque «No soy un robot» y pulse el «Descargar» de la ventana, como en los pasos 4 a 6.</li>
  <li>Descomprima el archivo. Para 2025 contiene <code>TOTAL_25.DTA</code>, con seis variables: las llaves <code>DIRECTORIO, SECUENCIA_P, ORDEN, MES</code>, el código <code>DPTO</code> y el factor <code>FEX_DPTO</code>.</li>
- <li>Únalo a los módulos mensuales del mismo año con esas cuatro llaves y use <code>FEX_DPTO</code>, sin dividirlo por 12, para las cifras por departamento (sección 1.7).</li>
+ <li>Únalo a los módulos mensuales del mismo año con esas cuatro llaves y use <code>FEX_DPTO</code>, sin dividirlo por 12, para las cifras por departamento (sección 2.7).</li>
 </ol>
 <ol class="pasos en">
  <li>Open <a href="https://microdatos.dane.gov.co/index.php/catalog/789" target="_blank" rel="noopener">microdatos.dane.gov.co/index.php/catalog/789</a>. The title is "Gran Encuesta Integrada de Hogares - GEIH - Factores de Expansión Departamental 2007 - 2025".</li>
@@ -645,7 +824,7 @@ footer{border-top:1px solid var(--borde);color:var(--sub);font-size:13px;padding
  <li>Download <b>only the year you will analyse</b> (e.g., the last box: "Factor expansion departamental 2025").</li>
  <li>Press "Descargar", tick "No soy un robot" and press the pop-up's "Descargar", as in steps 4 to 6.</li>
  <li>Unzip. For 2025 it contains <code>TOTAL_25.DTA</code> with six variables: keys <code>DIRECTORIO, SECUENCIA_P, ORDEN, MES</code>, code <code>DPTO</code> and factor <code>FEX_DPTO</code>.</li>
- <li>Merge it with the same year's monthly modules on those four keys and use <code>FEX_DPTO</code>, without dividing by 12, for departmental figures (section 1.7).</li>
+ <li>Merge it with the same year's monthly modules on those four keys and use <code>FEX_DPTO</code>, without dividing by 12, for departmental figures (section 2.7).</li>
 </ol>
 <details><summary><span class="es">Ejemplo en Python: tasa de desocupación departamental con el factor correcto</span><span class="en">Python example: departmental unemployment with the right factor</span></summary><div>
 <pre># Fuente: Departamento Administrativo Nacional de Estadística: www.dane.gov.co
@@ -683,7 +862,7 @@ print((ft[ft["FT"] == 1].groupby("DPTO")["FEX_DPTO"].sum() / 1e3).round(1))  # m
  <li><b>Questions about the data.</b> DANE answers at contacto@dane.gov.co and toll-free 01 8000 912002 (per the catalogue footer).</li>
 </ul>
 </div></details>
-<h3><span class="es">7.3 Primeros cálculos con los microdatos</span><span class="en">7.3 First calculations with the microdata</span></h3>
+<h3><span class="es">8.3 Primeros cálculos con los microdatos</span><span class="en">8.3 First calculations with the microdata</span></h3>
 <details><summary><span class="es">GEIH en Python: tasa de desocupación y afiliación a salud de un mes</span><span class="en">GEIH in Python: one month's unemployment and health enrolment</span></summary><div>
 <pre># Fuente: Departamento Administrativo Nacional de Estadística: www.dane.gov.co
 import pandas as pd
@@ -700,8 +879,8 @@ print(f"TGP={100*fza/pet:.1f}%  TO={100*ocu/pet:.1f}%  TD={100*(fza-ocu)/fza:.1f
 # Afiliación a salud de toda la población: busque en el diccionario la pregunta
 # "¿Está afiliado(a) ... a alguna entidad de seguridad social en salud?" (P6090: 1 = sí)
 print(100 * cg.loc[cg["P6090"] == 1, "FEX_C18"].sum() / cg["FEX_C18"].sum())</pre>
-<p class="es">Un mes tiene menos precisión que un año. Para resultados anuales, una los 12 meses y ajuste el factor de expansión (sección 1.6).</p>
-<p class="en">A single month is less precise than a year. For annual results, pool the 12 months and adjust the expansion factor (section 1.6).</p>
+<p class="es">Un mes tiene menos precisión que un año. Para resultados anuales, una los 12 meses y ajuste el factor de expansión (sección 2.6).</p>
+<p class="en">A single month is less precise than a year. For annual results, pool the 12 months and adjust the expansion factor (section 2.6).</p>
 </div></details>
 <details><summary><span class="es">Pobreza monetaria en R (estudio 908)</span><span class="en">Monetary poverty in R (study 908)</span></summary><div>
 <pre># Fuente: Departamento Administrativo Nacional de Estadística: www.dane.gov.co
@@ -722,21 +901,29 @@ salud <- read.dbf("Salud.dbf", as.is = TRUE)          # módulo Salud de la ECV 
 <p class="es">Los nombres exactos de las variables cambian entre años; consulte siempre el diccionario de datos del estudio.</p>
 <p class="en">Exact variable names change across years; always check the study's data dictionary.</p>
 </div></details>
-<h3><span class="es">7.4 Reproducción de este repositorio</span><span class="en">7.4 Reproducing this repository</span></h3>
+<h3><span class="es">8.4 Reproducción de este repositorio</span><span class="en">8.4 Reproducing this repository</span></h3>
 <pre>git clone https://github.com/doar95/geih-colombia
 cd geih-colombia
 pip install pandas openpyxl xlrd
 python scripts/00_descargar_anexos.py   # descarga los anexos desde www.dane.gov.co
-python scripts/01_construir_datos.py    # genera data/datos.json</pre>
+python scripts/01_construir_datos.py    # genera data/datos.json
+
+# Tablero: requiere los microdatos descargados del DANE (nunca se suben al repositorio)
+pip install pyreadstat
+export GEIH_DTA=".../DTA_2025_2026"
+export GEIH_ANEXOS=".../anexos_dane"
+export GEIH_FEX_DPTO=".../Factores_departamentales_2025/DTA/TOTAL_25.DTA"
+export GEIH_POBREZA=".../Pobreza_2025"
+python scripts/02_microdatos.py         # genera data/micro.json</pre>
 </section>
 
 
 <!-- ======================= CALENDARIO ======================= -->
 <section id="calendario" hidden>
-<h2><span class="es">8. Calendario de publicación de las fuentes</span><span class="en">8. Release calendar of the sources</span></h2>
+<h2><span class="es">9. Calendario de publicación de las fuentes</span><span class="en">9. Release calendar of the sources</span></h2>
 <p class="es">El DANE publica su calendario de difusión oficial en <a href="https://www.dane.gov.co/index.php/calendario" target="_blank" rel="noopener">dane.gov.co/index.php/calendario</a>, que es la referencia vinculante. Las fechas siguientes se verificaron en ese calendario o en las fechas de actualización impresas en los anexos. Las horas de Colombia corresponden a UTC−5 durante todo el año (sin horario de verano), dato útil para lectores internacionales.</p>
 <p class="en">DANE's official release calendar is at <a href="https://www.dane.gov.co/index.php/calendario" target="_blank" rel="noopener">dane.gov.co/index.php/calendario</a>, the binding reference. Dates below were verified in that calendar or in update dates printed in the annexes. Colombian time is UTC−5 all year (no daylight saving), useful for international readers.</p>
-<h3><span class="es">8.1 Fechas verificadas en 2026</span><span class="en">8.1 Verified dates in 2026</span></h3>
+<h3><span class="es">9.1 Fechas verificadas en 2026</span><span class="en">9.1 Verified dates in 2026</span></h3>
 <div class="cal">
  <div class="conf"><b>14 abr / Apr 2026</b><span class="es">Pobreza multidimensional 2025 (nacional y departamental)</span><span class="en">Multidimensional poverty 2025</span></div>
  <div class="conf"><b>15 abr / Apr 2026</b><span class="es">Mercado laboral por departamentos, serie anual 2025</span><span class="en">Departmental labour market, 2025</span></div>
@@ -745,7 +932,7 @@ python scripts/01_construir_datos.py    # genera data/datos.json</pre>
  <div class="conf"><b>13 oct / Oct 2026</b><span class="es">Empleo informal y seguridad social; mercado laboral según sexo (jun–ago 2026)</span><span class="en">Informality and social security; labour market by sex (Jun–Aug 2026)</span></div>
  <div class="conf"><b>30 oct / Oct 2026</b><span class="es">Mercado laboral (GEIH), septiembre de 2026</span><span class="en">Labour market (GEIH), September 2026</span></div>
 </div>
-<h3><span class="es">8.2 Periodicidad habitual de las publicaciones</span><span class="en">8.2 Usual release frequency</span></h3>
+<h3><span class="es">9.2 Periodicidad habitual de las publicaciones</span><span class="en">9.2 Usual release frequency</span></h3>
 <div class="tabla"><table>
 <tr><th><span class="es">Publicación</span><span class="en">Release</span></th><th><span class="es">Periodicidad</span><span class="en">Frequency</span></th><th><span class="es">Ventana observada en 2026</span><span class="en">Window observed in 2026</span></th></tr>
 <tr><td><span class="es">Mercado laboral (GEIH)</span><span class="en">Labour market (GEIH)</span></td><td><span class="es">Mensual</span><span class="en">Monthly</span></td><td><span class="es">Último día hábil del mes siguiente al de referencia</span><span class="en">Last working day of the following month</span></td></tr>
@@ -760,11 +947,11 @@ python scripts/01_construir_datos.py    # genera data/datos.json</pre>
 
 <!-- ======================= DISCUSIÓN ======================= -->
 <section id="discusion" hidden>
-<h2><span class="es">9. Discusión y limitaciones</span><span class="en">9. Discussion and limitations</span></h2>
-<h3><span class="es">9.1 Lectura conjunta de los indicadores</span><span class="en">9.1 Reading the indicators together</span></h3>
+<h2><span class="es">10. Discusión y limitaciones</span><span class="en">10. Discussion and limitations</span></h2>
+<h3><span class="es">10.1 Lectura conjunta de los indicadores</span><span class="en">10.1 Reading the indicators together</span></h3>
 <p class="es">Las medidas monetaria y multidimensional responden a enfoques distintos (ingreso frente a privaciones directas) y a fuentes distintas (GEIH frente a ECV); por ello pueden evolucionar de forma diferente y no deben sumarse ni restarse. Del mismo modo, la tasa de desocupación debe leerse junto con la participación y la ocupación, y la cobertura de aseguramiento administrativa junto con las mediciones por encuesta.</p>
 <p class="en">Monetary and multidimensional measures reflect different approaches (income vs. direct deprivations) and sources (GEIH vs. ECV); they can diverge and should not be added or subtracted. Likewise, unemployment should be read with participation and employment, and administrative insurance coverage alongside survey measures.</p>
-<h3><span class="es">9.2 Advertencias</span><span class="en">9.2 Caveats</span></h3>
+<h3><span class="es">10.2 Advertencias</span><span class="en">10.2 Caveats</span></h3>
 <ol class="es">
  <li><b>Carácter retrospectivo y actualizable.</b> El estudio describe información ya publicada hasta octubre de 2026 y puede actualizarse con nuevas encuestas y anexos.</li>
  <li><b>Ausencia de causalidad.</b> Ningún gráfico ni tabla identifica efectos de políticas, programas o gobiernos.</li>
@@ -774,7 +961,7 @@ python scripts/01_construir_datos.py    # genera data/datos.json</pre>
  <li><b>Cálculos propios.</b> Los promedios anuales del mercado laboral, los promedios por período de gobierno, la cobertura administrativa y la conversión a pesos constantes son cálculos de los autores y no cifras oficiales.</li>
  <li><b>Pesos constantes.</b> La conversión usa el IPC total nacional promedio anual (base diciembre 2018 = 100) y no las variaciones de precios específicas de cada territorio o canasta; las líneas de pobreza oficiales se actualizan con la metodología propia del DANE.</li>
  <li><b>Datos no disponibles.</b> Cuando una fuente no publica un dato para un territorio o año, el mapa lo muestra en gris y el gráfico deja el espacio vacío; no se imputan valores.</li>
- <li><b>Microdatos y anexos.</b> Esta versión utiliza los anexos oficiales. Ni los anexos ni los microdatos se redistribuyen en el repositorio, porque las condiciones de uso del DANE lo prohíben sin autorización escrita; la sección 7 guía su descarga directa. Las desagregaciones adicionales calculadas con microdatos podrán incorporarse en actualizaciones futuras como resúmenes numéricos.</li>
+ <li><b>Microdatos y anexos.</b> Las secciones de indicadores utilizan los anexos oficiales; el tablero de la sección 1 publica resúmenes numéricos calculados por los autores a partir de los microdatos. Ni los anexos ni los microdatos se redistribuyen en el repositorio, porque las condiciones de uso del DANE lo prohíben sin autorización escrita; la sección 8 guía su descarga directa.</li>
 </ol>
 <ol class="en">
  <li><b>Retrospective and updatable.</b> The study describes information published up to October 2026 and can be updated with new surveys and annexes.</li>
@@ -785,19 +972,19 @@ python scripts/01_construir_datos.py    # genera data/datos.json</pre>
  <li><b>Own calculations.</b> Annual labour-market means, averages by government term, administrative coverage and constant-price conversion are the authors' calculations, not official figures.</li>
  <li><b>Constant prices.</b> Conversion uses the national annual average CPI (base Dec. 2018 = 100), not territory- or basket-specific prices; official poverty lines are updated with DANE's own method.</li>
  <li><b>Missing data.</b> When a source does not publish a figure, maps show grey and charts leave a gap; no values are imputed.</li>
- <li><b>Microdata and annexes.</b> This version uses official annexes. Neither annexes nor microdata are redistributed here, because DANE's terms forbid it without written approval; section 7 explains direct download. Further breakdowns computed from microdata may be added later as numerical summaries.</li>
+ <li><b>Microdata and annexes.</b> The indicator sections use official annexes; the dashboard in section 1 publishes numerical summaries computed by the authors from the microdata. Neither annexes nor microdata are redistributed here, because DANE's terms forbid it without written approval; section 8 explains direct download.</li>
 </ol>
 </section>
 
 <!-- ======================= CRÉDITOS ======================= -->
 <section id="creditos" hidden>
-<h2><span class="es">10. Autoría, agradecimientos, marco normativo y referencias</span><span class="en">10. Authorship, acknowledgements, legal framework and references</span></h2>
-<h3><span class="es">10.1 Autoría</span><span class="en">10.1 Authorship</span></h3>
+<h2><span class="es">11. Autoría, agradecimientos, marco normativo y referencias</span><span class="en">11. Authorship, acknowledgements, legal framework and references</span></h2>
+<h3><span class="es">11.1 Autoría</span><span class="en">11.1 Authorship</span></h3>
 <p>Claude (Anthropic) · David Aguilar · Camila Gómez.</p>
-<h3><span class="es">10.2 Agradecimientos</span><span class="en">10.2 Acknowledgements</span></h3>
+<h3><span class="es">11.2 Agradecimientos</span><span class="en">11.2 Acknowledgements</span></h3>
 <p class="es">Los autores agradecen al Departamento Administrativo Nacional de Estadística (DANE), en particular a los equipos de la Gran Encuesta Integrada de Hogares, de la Encuesta Nacional de Calidad de Vida y del Grupo de Pobreza, y al personal de campo que visita cada mes miles de hogares en todo el país; al Ministerio de Salud y Protección Social y a la Administradora de los Recursos del Sistema General de Seguridad Social en Salud (ADRES) por la publicación de las cifras de afiliación; y a los hogares colombianos que responden las encuestas. Sin su esfuerzo este repositorio no existiría.</p>
 <p class="en">The authors thank the National Administrative Department of Statistics (DANE), especially the teams of the Integrated Household Survey, the National Quality of Life Survey and the Poverty Group, and the field staff who visit thousands of households across the country every month; the Ministry of Health and Social Protection and ADRES for publishing enrolment figures; and the Colombian households who answer the surveys. Without their effort this repository would not exist.</p>
-<h3><span class="es">10.3 Marco normativo que permite este repositorio</span><span class="en">10.3 Legal framework enabling this repository</span></h3>
+<h3><span class="es">11.3 Marco normativo que permite este repositorio</span><span class="en">11.3 Legal framework enabling this repository</span></h3>
 <ul class="es">
  <li><b>Constitución Política de 1991, artículos 20 y 74:</b> derecho a recibir información veraz e imparcial y a acceder a los documentos públicos.</li>
  <li><b>Ley 1712 de 2014:</b> transparencia y derecho de acceso a la información pública nacional; obliga a las entidades a publicar información pública en formatos accesibles y reutilizables.</li>
@@ -814,7 +1001,7 @@ python scripts/01_construir_datos.py    # genera data/datos.json</pre>
  <li><b>Law 1581 of 2012:</b> personal data protection; public-use microdata are anonymised.</li>
  <li><b>CONPES 150 of 2012:</b> official poverty measurement methods and institutional arrangements.</li>
 </ul>
-<h3><span class="es">10.4 Referencias</span><span class="en">10.4 References</span></h3>
+<h3><span class="es">11.4 Referencias</span><span class="en">11.4 References</span></h3>
 <ul class="refs">
  <li>Alkire, S., &amp; Foster, J. (2011). Counting and multidimensional poverty measurement. <i>Journal of Public Economics, 95</i>(7–8), 476–487.</li>
  <li>Angulo, R., Díaz, Y., &amp; Pardo, R. (2011). <i>Índice de Pobreza Multidimensional para Colombia (IPM-Colombia) 1997–2010</i> (Archivos de Economía 382). Departamento Nacional de Planeación.</li>
@@ -834,6 +1021,7 @@ python scripts/01_construir_datos.py    # genera data/datos.json</pre>
 </main>
 </div>
 <footer><p>Fuente: Departamento Administrativo Nacional de Estadística: <a href="https://www.dane.gov.co">www.dane.gov.co</a> · Ministerio de Salud y Protección Social: <a href="https://minsalud.gov.co/Proteccion-Social/Paginas/cifras-aseguramiento-salud.aspx">cifras de afiliación en salud</a></p><span class="es">Repositorio académico de acceso abierto. Código: licencia MIT. Datos: DANE y Ministerio de Salud y Protección Social, citados en cada gráfico.</span><span class="en">Open-access academic repository. Code: MIT licence. Data: DANE and Ministry of Health, cited in each chart.</span> · <a href="https://github.com/doar95/geih-colombia">github.com/doar95/geih-colombia</a></footer>
-<script src="assets/app.js?v=20261106a"></script>
+<script src="assets/app.js?v=20261106c"></script>
+<script src="assets/tablero.js?v=20261106c"></script>
 </body>
 </html>
